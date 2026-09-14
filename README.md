@@ -19,6 +19,7 @@ open http://localhost:8433
 ## 目录
 
 ```
+design.md           # 设计规范（新页面必读）
 index.html          # 页面结构（8 区块 + 内联 SVG）
 assets/site.css     # 设计系统 + 组件 + 动画
 assets/site.js      # i18n / 视频墙 / 轮播等

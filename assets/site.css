@@ -322,6 +322,7 @@
   /* ---------- Hero ---------- */
   .hero {
     position: relative;
+    min-height: 88vh;
     min-height: 88dvh;
     display: flex;
     align-items: flex-end;
@@ -413,7 +414,7 @@
      sitting on the skyline backdrop. Extra top padding clears the fixed header
      now that the hero holds a tall block rather than just three lines of copy. */
   @media (min-width: 1080px) {
-    .hero { min-height: clamp(700px, 82dvh, 820px); }
+    .hero { min-height: clamp(700px, 82vh, 820px); min-height: clamp(700px, 82dvh, 820px); }
     .hero-content {
       display: grid;
       /* Left column runs wider than the right so the headline holds one line and
@@ -1638,4 +1639,16 @@
   .lang-btn.is-on { background: #ffffff; color: var(--orange); }
   @media (max-width: 479px) {
     .lang-btn { padding: 7px 9px; }
+  }
+  /* Very narrow phones: shrink the brand, switcher and CTA together so the
+     whole bar (logo + wordmark + EN/中/日 + Get in touch) fits on one row
+     down to 320px instead of pushing the CTA off-screen. */
+  @media (max-width: 404px) {
+    .nav-inner { padding: 0 12px; gap: 8px; }
+    .brand { gap: 6px; }
+    .brand-mark { width: 26px; height: 34px; }
+    .brand-name { font-size: 0.9375rem; }
+    .nav-right { gap: 8px; }
+    .nav-cta { padding: 6px 10px; font-size: 0.75rem; }
+    .lang-btn { padding: 6px 5px; font-size: 0.625rem; }
   }

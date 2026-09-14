@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Persona Lab | AI x Gaming</title>
+<meta content="The next generation of game engineering and game intelligence. Agentic game creation, world models, world compilation and rendering, game agents, and digital humans." name="description"/>
+<meta content="#ffe72e" name="theme-color"/>
+<!-- Favicon: the Persona Lab dancing-figure mark, stroked in ink to match the page. -->
+<link href="/persona.svg" media="(prefers-color-scheme: light)" rel="icon" sizes="any" type="image/svg+xml"/>
+<link href="/assets/site.css" rel="stylesheet"/><link rel="icon" type="image/svg+xml" href="/persona_dark.svg" media="(prefers-color-scheme: dark)" sizes="any"/>
+</head>
+<body>
+<!-- ============ NAV ============ -->
+<header>
+<nav class="nav-inner">
+<a class="brand" href="#">
+<svg aria-hidden="true" class="brand-mark" fill="none" height="42" viewbox="44 8 126 164" width="32">
+<path d="M52 118 C 78 96 120 88 148 90 C 168 92 166 108 148 112 C 126 117 108 120 106 136 C 104 152 96 162 90 166" style="stroke: var(--logo-accent, #ff86ad)" stroke-linecap="round" stroke-width="7.5"></path>
+<circle cx="84" cy="47" fill="currentColor" r="6.5"></circle>
+<path d="M88 54 C 100 40 118 24 132 12 C 118 27 106 44 99 57 Z" fill="currentColor"></path>
+<path d="M81 53 C 76 65 90 77 86 92 C 82 107 80 125 86 140 C 92 125 95 107 93 92 C 96 77 94 65 89 53 Z" fill="currentColor"></path>
+</svg>
+<span class="brand-name">PERSONA<b data-en="LAB">LAB</b></span>
+</a>
+<div class="nav-links">
+<a data-en="Research" href="#directions">Research</a>
+<a data-en="Products" href="#solutions">Products</a>
+<a data-en="Solutions" href="#solutions">Solutions</a>
+<a data-en="About Us" href="#about">About Us</a>
+</div>
+<div class="nav-right">
+<div aria-label="Language" class="lang" role="group">
+<button aria-pressed="false" class="lang-btn" data-lang="en" lang="en" title="English" type="button">EN</button>
+<button aria-label="简体中文" aria-pressed="true" class="lang-btn is-on" data-lang="zh" lang="zh" title="简体中文" type="button">中</button>
+<button aria-label="日本語" aria-pressed="false" class="lang-btn" data-lang="ja" lang="ja" title="日本語" type="button">日</button>
+</div>
+<a class="btn-primary nav-cta" data-en="Get in touch" href="https://docs.google.com/forms/d/e/1FAIpQLSeB6OECRShKuZrSufdVFovpX3vko7G9uniNJ7kd0TMMVWRCIg/viewform?usp=header" rel="noopener" target="_blank">Get in touch</a>
+</div>
+</nav>
+</header>
+<!-- ============ HERO ============ -->
+<section class="hero">
+<div class="hero-bg">
+<div aria-hidden="true" class="hero-scene">
+<!-- viewBox is 1600 wide so a short full-width band can show the whole scene.
+             "slice" crops to cover; the cast is kept centred so it survives the
+             crop on narrow viewports. -->
+<svg class="hero-city" preserveaspectratio="xMidYMax slice" viewbox="0 0 1600 180">
+<!-- Japanese flat-cartoon scene: amber sky, cream clouds, Mt. Fuji, a red hill
+           with a torii and a pagoda, and a cast of three humans + four robots
+           standing on the hill. Flat SVG so the sky, cast and petals animate. -->
+<defs>
+<lineargradient id="hill-grad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0" stop-color="#8a2020"></stop>
+<stop offset="0.7" stop-color="#701719"></stop>
+<stop offset="0.92" stop-color="#d9b8b0"></stop>
+<stop offset="1" stop-color="#f7f5ef"></stop>
+</lineargradient>
+<symbol id="cloud" viewbox="0 0 120 46">
+<path d="M20 44 q-18 0 -19 -12 q-1 -12 12 -13 q-2 -15 13 -17 q10 -1 16 7 q9 -8 21 -3 q13 6 9 18 q12 1 10 13 q-1 9 -14 9 z" fill="#fdf3dd"></path>
+</symbol>
+<symbol id="petal" viewbox="0 0 20 20">
+<path d="M10 1 C16 4 18 11 13 16 C12 17.2 10.6 17.6 10 16.4 C9.4 17.6 8 17.2 7 16 C2 11 4 4 10 1 Z" fill="#ffb3c7"></path>
+</symbol>
+<!-- Cast: three humans (Japanese woman in kimono, Japanese man in yukata,
+               a foreigner) and four robots of different styles and heights.
+               Drawn with feet at the origin so they can be seated on the hill. -->
+<g id="p-woman">
+<path d="M-12 -98 L12 -98 L20 -8 Q21 0 13 0 L-13 0 Q-21 0 -20 -8 Z" fill="#d6455a"></path>
+<path d="M-11 -96 L-29 -92 L-26 -54 L-13 -58 Z" fill="#d6455a"></path>
+<path d="M11 -96 L29 -92 L26 -54 L13 -58 Z" fill="#d6455a"></path>
+<rect x="-15" y="-62" width="30" height="12" rx="3" fill="#ffe72e"></rect>
+<rect x="-3" y="-62" width="6" height="12" rx="2" fill="#1a1a1a" opacity="0.18"></rect>
+<path d="M-7 -98 L0 -84 L7 -98" fill="none" stroke="#f7f2e6" stroke-width="4"></path>
+<rect x="-4.5" y="-106" width="9" height="10" fill="#f0c9a0"></rect>
+<circle cx="0" cy="-118" r="13" fill="#f0c9a0"></circle>
+<path d="M-13 -120 a13 13 0 0 1 26 0 q0 -16 -13 -16 q-13 0 -13 16z" fill="#2a2320"></path>
+<circle cx="0" cy="-134" r="7" fill="#2a2320"></circle>
+<line x1="5" y1="-134" x2="14" y2="-138" stroke="#ffe72e" stroke-linecap="round" stroke-width="3"></line>
+<circle cx="-4.5" cy="-118" r="1.5" fill="#1a1a1a"></circle>
+<circle cx="4.5" cy="-118" r="1.5" fill="#1a1a1a"></circle>
+<path d="M-3 -112 q3 2.5 6 0" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-width="1.5"></path>
+</g>
+<g id="p-man">
+<path d="M-15 -98 L15 -98 L21 -6 Q22 0 15 0 L-15 0 Q-22 0 -21 -6 Z" fill="#33405e"></path>
+<path d="M-13 -96 L-30 -90 L-28 -50 L-15 -54 Z" fill="#33405e"></path>
+<path d="M13 -96 L30 -90 L28 -50 L15 -54 Z" fill="#33405e"></path>
+<path d="M-8 -98 L0 -82 L8 -98" fill="none" stroke="#e9e3d5" stroke-width="4"></path>
+<rect x="-16" y="-58" width="32" height="11" rx="3" fill="#c8a25c"></rect>
+<rect x="-5" y="-108" width="10" height="12" fill="#e6b98a"></rect>
+<circle cx="0" cy="-120" r="13" fill="#e6b98a"></circle>
+<path d="M-13 -122 a13 13 0 0 1 26 0 q0 -17 -13 -17 q-13 0 -13 17z" fill="#241f1c"></path>
+<path d="M-11 -126 q3 -6 8 -5" fill="none" stroke="#241f1c" stroke-linecap="round" stroke-width="3"></path>
+<circle cx="-4.5" cy="-120" r="1.5" fill="#1a1a1a"></circle>
+<circle cx="4.5" cy="-120" r="1.5" fill="#1a1a1a"></circle>
+<path d="M-3 -114 q3 2.5 6 0" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-width="1.5"></path>
+</g>
+<g id="p-foreign">
+<rect x="-13" y="-46" width="11" height="46" rx="4" fill="#3f5a7d"></rect>
+<rect x="2" y="-46" width="11" height="46" rx="4" fill="#3f5a7d"></rect>
+<rect x="-19" y="-104" width="38" height="62" rx="12" fill="#3f7d5a"></rect>
+<rect x="-19" y="-64" width="38" height="12" rx="3" fill="#2f5f43"></rect>
+<line x1="0" y1="-102" x2="0" y2="-52" stroke="#e9e3d5" stroke-width="2.5"></line>
+<rect x="-27" y="-100" width="9" height="54" rx="4.5" fill="#3f7d5a"></rect>
+<rect x="18" y="-100" width="9" height="54" rx="4.5" fill="#3f7d5a"></rect>
+<rect x="-5" y="-112" width="10" height="12" fill="#f6d0b0"></rect>
+<circle cx="0" cy="-124" r="14" fill="#f6d0b0"></circle>
+<path d="M-15 -126 a15 15 0 0 1 30 0 q0 -18 -15 -18 q-15 0 -15 18z" fill="#e8a92e"></path>
+<path d="M-14 -122 q-4 8 -3 16 q5 -8 3 -16z" fill="#e8a92e"></path>
+<path d="M14 -122 q4 8 3 16 q-5 -8 -3 -16z" fill="#e8a92e"></path>
+<circle cx="-5" cy="-124" r="1.6" fill="#3a6ea5"></circle>
+<circle cx="5" cy="-124" r="1.6" fill="#3a6ea5"></circle>
+<path d="M-4 -117 q4 3 8 0" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-width="1.6"></path>
+</g>
+<g id="r-tall">
+<rect x="-10" y="-52" width="7" height="52" rx="3" fill="#5a6070"></rect>
+<rect x="3" y="-52" width="7" height="52" rx="3" fill="#5a6070"></rect>
+<rect x="-13" y="-6" width="12" height="6" rx="3" fill="#3f4450"></rect>
+<rect x="1" y="-6" width="12" height="6" rx="3" fill="#3f4450"></rect>
+<rect x="-17" y="-112" width="34" height="62" rx="9" fill="#8b93a6"></rect>
+<circle cx="0" cy="-92" r="5" fill="#ffe72e"></circle>
+<rect x="-25" y="-108" width="7" height="50" rx="3.5" fill="#5a6070"></rect>
+<rect x="18" y="-108" width="7" height="50" rx="3.5" fill="#5a6070"></rect>
+<rect x="-15" y="-142" width="30" height="26" rx="8" fill="#9aa2b4"></rect>
+<rect x="-11" y="-136" width="22" height="9" rx="4" fill="#20242c"></rect>
+<circle cx="-4" cy="-131.5" r="2" fill="#5ad0ff"></circle>
+<circle cx="4" cy="-131.5" r="2" fill="#5ad0ff"></circle>
+<line x1="0" y1="-142" x2="0" y2="-156" stroke="#5a6070" stroke-width="2.5"></line>
+<circle cx="0" cy="-158" r="3" fill="#ff86ad"></circle>
+</g>
+<g id="r-round">
+<rect x="-8" y="-30" width="6" height="30" rx="3" fill="#6b7280"></rect>
+<rect x="2" y="-30" width="6" height="30" rx="3" fill="#6b7280"></rect>
+<rect x="-20" y="-82" width="40" height="56" rx="20" fill="#8a93a6"></rect>
+<circle cx="-6" cy="-58" r="4" fill="#ffe72e"></circle>
+<circle cx="6" cy="-58" r="4" fill="#ffe72e"></circle>
+<path d="M-10 -44 q10 6 20 0" fill="none" stroke="#4c505a" stroke-linecap="round" stroke-width="2.5"></path>
+<path d="M-20 -74 q-12 4 -12 16" fill="none" stroke="#6b7280" stroke-linecap="round" stroke-width="7"></path>
+<path d="M20 -74 q12 4 12 16" fill="none" stroke="#6b7280" stroke-linecap="round" stroke-width="7"></path>
+<line x1="0" y1="-82" x2="0" y2="-92" stroke="#6b7280" stroke-width="2.5"></line>
+<circle cx="0" cy="-94" r="3.5" fill="#ff86ad"></circle>
+</g>
+<g id="r-wide">
+<rect x="-30" y="-16" width="26" height="16" rx="7" fill="#3f4450"></rect>
+<rect x="4" y="-16" width="26" height="16" rx="7" fill="#3f4450"></rect>
+<rect x="-32" y="-104" width="64" height="90" rx="10" fill="#7d8598"></rect>
+<rect x="-20" y="-94" width="40" height="28" rx="5" fill="#20242c"></rect>
+<path d="M-14 -82 q5 5 10 0" fill="none" stroke="#5ad0ff" stroke-linecap="round" stroke-width="3"></path>
+<path d="M4 -82 q5 5 10 0" fill="none" stroke="#5ad0ff" stroke-linecap="round" stroke-width="3"></path>
+<circle cx="-14" cy="-46" r="4" fill="#ff86ad"></circle>
+<circle cx="0" cy="-46" r="4" fill="#ffe72e"></circle>
+<circle cx="14" cy="-46" r="4" fill="#5ad0ff"></circle>
+<rect x="-41" y="-96" width="9" height="48" rx="4.5" fill="#5a6070"></rect>
+<rect x="32" y="-96" width="9" height="48" rx="4.5" fill="#5a6070"></rect>
+<line x1="0" y1="-104" x2="0" y2="-116" stroke="#5a6070" stroke-width="3"></line>
+<circle cx="0" cy="-118" r="4" fill="#ffe72e"></circle>
+</g>
+<g id="r-small">
+<rect x="-7" y="-20" width="5" height="20" rx="2.5" fill="#6b7280"></rect>
+<rect x="2" y="-20" width="5" height="20" rx="2.5" fill="#6b7280"></rect>
+<rect x="-15" y="-60" width="30" height="42" rx="12" fill="#9aa2b4"></rect>
+<circle cx="0" cy="-40" r="6" fill="#20242c"></circle>
+<circle cx="-2" cy="-40" r="2.5" fill="#5ad0ff"></circle>
+<path d="M-15 -54 q-8 2 -8 10" fill="none" stroke="#6b7280" stroke-linecap="round" stroke-width="6"></path>
+<path d="M15 -54 q8 2 8 10" fill="none" stroke="#6b7280" stroke-linecap="round" stroke-width="6"></path>
+<line x1="0" y1="-60" x2="0" y2="-70" stroke="#6b7280" stroke-width="2.5"></line>
+<circle cx="0" cy="-72" r="4" fill="#ffe72e"></circle>
+</g>
+</defs>
+<!-- Mt. Fuji behind everything -->
+<path class="fuji" d="M380 156 C 580 130 700 10 800 10 C 900 10 1020 130 1220 156 Z" fill="#4b506e"></path>
+<path d="M746 42 C 766 24 782 10 800 10 C 818 10 834 24 854 42 C 838 36 824 48 810 40 C 804 50 796 50 790 40 C 776 48 762 36 746 42 Z" fill="#f7f5ef"></path>
+<!-- clouds -->
+<use class="cloud" href="#cloud" style="--i: 1" width="150" height="58" x="70" y="26"></use>
+<use class="cloud" href="#cloud" style="--i: 3" width="108" height="42" x="350" y="64"></use>
+<use class="cloud" href="#cloud" style="--i: 2" width="132" height="51" x="628" y="22"></use>
+<use class="cloud" href="#cloud" style="--i: 4" width="118" height="46" x="968" y="58"></use>
+<use class="cloud" href="#cloud" style="--i: 5" width="152" height="59" x="1262" y="30"></use>
+<!-- the hill the cast stands on, fading into the paper floor below -->
+<path class="hill" d="M0 180 L0 156 Q 180 150 360 142 Q 560 133 800 132 Q 1040 133 1240 142 Q 1420 150 1600 156 L1600 180 Z" fill="url(#hill-grad)"></path>
+<!-- torii and pagoda, seated on the hill at either side of the cast -->
+<g class="torii" transform="translate(400 152)">
+<rect x="-34" y="-100" width="11" height="100" rx="2" fill="#c0392b"></rect>
+<rect x="23" y="-100" width="11" height="100" rx="2" fill="#c0392b"></rect>
+<path d="M-46 -104 Q0 -114 46 -104 L46 -96 Q0 -106 -46 -96 Z" fill="#c0392b"></path>
+<rect x="-40" y="-88" width="80" height="9" rx="2" fill="#c0392b"></rect>
+<rect x="-7" y="-88" width="14" height="16" rx="2" fill="#1a1a1a"></rect>
+</g>
+<g class="pagoda" transform="translate(1200 150)">
+<rect x="-26" y="-16" width="52" height="16" fill="#7a5c40"></rect>
+<rect x="-20" y="-42" width="40" height="26" fill="#8a6a4a"></rect>
+<path d="M-34 -42 L0 -54 L34 -42 Z" fill="#3f4450"></path>
+<rect x="-16" y="-64" width="32" height="22" fill="#8a6a4a"></rect>
+<path d="M-30 -64 L0 -76 L30 -64 Z" fill="#3f4450"></path>
+<rect x="-12" y="-86" width="24" height="22" fill="#8a6a4a"></rect>
+<path d="M-26 -86 L0 -98 L26 -86 Z" fill="#3f4450"></path>
+<line x1="0" y1="-98" x2="0" y2="-112" stroke="#3f4450" stroke-width="3"></line>
+<circle cx="0" cy="-114" r="4" fill="#ffe72e"></circle>
+</g>
+<!-- cast: robot, woman, robot, man, robot, foreigner, robot -->
+<g class="cast">
+<g transform="translate(480 139) scale(0.76)"><use class="cast-member" href="#r-tall" style="--i: 1"></use></g>
+<g transform="translate(570 137) scale(0.8)"><use class="cast-member" href="#p-woman" style="--i: 2"></use></g>
+<g transform="translate(650 135) scale(0.88)"><use class="cast-member" href="#r-small" style="--i: 3"></use></g>
+<g transform="translate(730 134) scale(0.88)"><use class="cast-member" href="#p-man" style="--i: 4"></use></g>
+<g transform="translate(890 135) scale(0.84)"><use class="cast-member" href="#r-round" style="--i: 5"></use></g>
+<g transform="translate(1000 137) scale(0.88)"><use class="cast-member" href="#p-foreign" style="--i: 6"></use></g>
+<g transform="translate(1110 140) scale(0.8)"><use class="cast-member" href="#r-wide" style="--i: 7"></use></g>
+</g>
+<!-- sakura petals drifting through the scene -->
+<g transform="translate(300 40)"><use class="petal" href="#petal" style="--i: 1" width="14" height="14"></use></g>
+<g transform="translate(470 18)"><use class="petal" href="#petal" style="--i: 3" width="12" height="12"></use></g>
+<g transform="translate(560 92)"><use class="petal" href="#petal" style="--i: 2" width="16" height="16"></use></g>
+<g transform="translate(660 30)"><use class="petal" href="#petal" style="--i: 5" width="13" height="13"></use></g>
+<g transform="translate(760 110)"><use class="petal" href="#petal" style="--i: 4" width="15" height="15"></use></g>
+<g transform="translate(880 66)"><use class="petal" href="#petal" style="--i: 6" width="12" height="12"></use></g>
+<g transform="translate(990 22)"><use class="petal" href="#petal" style="--i: 2" width="16" height="16"></use></g>
+<g transform="translate(1090 92)"><use class="petal" href="#petal" style="--i: 5" width="14" height="14"></use></g>
+<g transform="translate(1190 48)"><use class="petal" href="#petal" style="--i: 3" width="13" height="13"></use></g>
+</svg>
+<div class="hero-grid"></div>
+</div>
+<div class="hero-shade"></div>
+</div>
+<div class="hero-content">
+<div class="hero-copy">
+<h1 class="hero-enter d1">人間 <span class="accent" data-en="×">×</span> AI ＝ 個性；<br>人間 <span class="accent" data-en="×">×</span> AI ＝ ロボット教育</h1>
+<p class="sub hero-enter d2" data-en="Coevolve human &amp; AI in building worlds.">Coevolve human &amp; AI in building worlds.</p>
+<div class="cta-row hero-enter d3">
+<a class="btn-primary" data-en="Get in touch" href="https://docs.google.com/forms/d/e/1FAIpQLSeB6OECRShKuZrSufdVFovpX3vko7G9uniNJ7kd0TMMVWRCIg/viewform?usp=header" rel="noopener" target="_blank">Get in touch</a>
+<a class="btn-ghost" data-en="Explore directions" href="#directions">Explore directions</a>
+</div>
+</div>
+<!-- Gear Zero creation panel, sitting on the hero backdrop -->
+<div class="gz-panel hero-enter d3">
+<span aria-hidden="true" class="gz-dot gz-dot-y"></span>
+<span aria-hidden="true" class="gz-dot gz-dot-p"></span>
+<div class="gz-window" id="gz-window">
+<div class="gz-bar">
+<span class="gz-bar-title" data-en="Someone is building one right now">Someone is building one right now</span>
+<span class="gz-live"><span aria-hidden="true" class="gz-live-dot"></span><span data-en="Live">Live</span></span>
+</div>
+<div class="gz-main">
+<div class="gz-build">
+<p class="gz-said" data-en="“A first-person shooter in a city buried in ash”" id="gz-said">“A first-person shooter in a city buried in ash”</p>
+<ul class="gz-steps">
+<li style="--i: 1"><i aria-hidden="true">✓</i><span data-en="Planning the game">Planning the game</span></li>
+<li style="--i: 2"><i aria-hidden="true">✓</i><span data-en="Writing the code">Writing the code</span></li>
+<li style="--i: 3"><i aria-hidden="true">✓</i><span data-en="Drawing the art">Drawing the art</span></li>
+<li style="--i: 4"><i aria-hidden="true">✓</i><span data-en="Building the levels">Building the levels</span></li>
+</ul>
+<div aria-hidden="true" class="gz-track"><i class="gz-fill"></i></div>
+</div>
+<div class="gz-screen">
+<video aria-label="A game built on Gear Zero, running in a browser" id="gz-room" loop="" muted="" playsinline="" poster="/assets/hero-room.svg" preload="none"></video>
+<span class="gz-scrim" data-en="building…">building…</span>
+</div>
+</div>
+<div class="gz-versions">
+<span aria-hidden="true" class="gz-vline"></span>
+<div class="gz-v" style="--i: 1"><span aria-hidden="true" class="gz-vdot">1</span><span data-en="First version">First version</span></div>
+<div class="gz-v" style="--i: 2"><span aria-hidden="true" class="gz-vdot">2</span><span data-en="Second version">Second version</span></div>
+<div class="gz-v" style="--i: 3"><span aria-hidden="true" class="gz-vdot">3</span><span data-en="Third version">Third version</span></div>
+<div class="gz-v" style="--i: 4"><span aria-hidden="true" class="gz-vdot">4</span><span data-en="Fourth version">Fourth version</span></div>
+</div>
+<a aria-label="Gear Zero" class="gz-start" href="https://zero.personalab.ai/" rel="noopener" target="_blank">
+<span aria-hidden="true" class="gz-logo"><svg aria-hidden="true" class="gz-gear" fill="currentColor" stroke="currentColor" viewbox="20 20 420 400"><g fill="none" stroke-width="8.5"><line x1="224" x2="224" y1="87" y2="174"></line><line x1="85.82" x2="164.46" y1="178.43" y2="212.93"></line><line x1="111.95" x2="176.62" y1="344.22" y2="283.49"></line><line x1="288.79" x2="359.09" y1="233.83" y2="228.23"></line></g><g stroke-width="9"><circle class="gz-node" cx="224" cy="61" fill="none" r="27" style="--i: 1"></circle><circle class="gz-node" cx="62" cy="168" fill="none" r="27" style="--i: 4"></circle><circle class="gz-node" cx="93" cy="362" fill="none" r="26" style="--i: 3"></circle><circle class="gz-node" cx="387" cy="226" r="31" stroke="none" style="--i: 2"></circle></g><g class="gz-cog" stroke="none"><path d="M224 160 A79 79 0 1 1 224 318 A79 79 0 1 1 224 160 Z M224 184.5 A54.5 54.5 0 1 0 224 293.5 A54.5 54.5 0 1 0 224 184.5 Z" fill-rule="evenodd"></path><rect height="38" rx="1" transform="rotate(0 224 239)" width="34" x="207" y="141"></rect><rect height="38" rx="1" transform="rotate(40 224 239)" width="34" x="207" y="141"></rect><rect height="38" rx="1" transform="rotate(80 224 239)" width="34" x="207" y="141"></rect><rect height="38" rx="1" transform="rotate(120 224 239)" width="34" x="207" y="141"></rect><rect height="38" rx="1" transform="rotate(160 224 239)" width="34" x="207" y="141"></rect><rect height="38" rx="1" transform="rotate(200 224 239)" width="34" x="207" y="141"></rect><rect height="38" rx="1" transform="rotate(240 224 239)" width="34" x="207" y="141"></rect><rect height="38" rx="1" transform="rotate(280 224 239)" width="34" x="207" y="141"></rect><rect height="38" rx="1" transform="rotate(320 224 239)" width="34" x="207" y="141"></rect></g></svg><svg aria-hidden="true" class="gz-wordmark" fill="currentColor" viewbox="100 416.9 261.1 79.4"><path d="M129.12 416.991 Q137.538 416.991 144.135 420.745 Q150.749 424.483 154.438 431.08 Q158.143 437.678 158.143 446.111 L158.143 466.489 Q158.143 474.809 154.389 481.618 Q150.651 488.442 144.086 492.342 Q137.538 496.243 129.543 496.243 Q121.32 496.243 115.129 493.171 Q108.938 490.1 104.778 484.803 Q103.949 483.762 103.949 482.723 Q103.949 481.471 104.989 480.74 Q105.818 480.123 106.858 480.123 Q108.531 480.123 109.571 481.471 Q113 485.631 118.038 488.02 Q123.091 490.409 129.543 490.409 Q135.88 490.409 140.966 487.289 Q146.069 484.169 148.978 478.709 Q151.903 473.249 151.903 466.489 L151.903 461.923 Q148.88 468.049 142.9 471.591 Q136.92 475.118 129.12 475.118 Q120.703 475.118 114.089 471.429 Q107.491 467.74 103.738 461.142 Q100 454.529 100 446.111 Q100 437.791 103.851 431.145 Q107.703 424.483 114.349 420.745 Q121.011 416.991 129.12 416.991 Z M129.12 469.3 Q135.669 469.3 140.869 466.342 Q146.069 463.369 148.978 458.12 Q151.903 452.871 151.903 446.111 Q151.903 439.351 148.978 434.054 Q146.069 428.74 140.869 425.783 Q135.669 422.809 129.12 422.809 Q122.458 422.809 117.258 425.783 Q112.058 428.74 109.149 434.054 Q106.24 439.351 106.24 446.111 Q106.24 452.871 109.149 458.12 Q112.058 463.369 117.258 466.342 Q122.458 469.3 129.12 469.3 Z M200.731 417.089 Q208.32 417.089 214.3 420.68 Q220.28 424.271 223.611 430.625 Q226.942 436.962 226.942 445.071 Q226.942 446.42 226.097 447.2 Q225.269 447.98 223.92 447.98 L180.337 447.98 Q180.662 454.123 183.571 458.965 Q186.48 463.791 191.371 466.505 Q196.262 469.202 202.291 469.202 Q206.337 469.202 210.449 467.805 Q214.56 466.391 216.949 464.1 Q217.989 463.271 219.142 463.271 Q220.28 463.271 221.011 463.889 Q222.149 464.831 222.149 466.082 Q222.149 467.123 221.222 468.049 Q217.891 471.071 212.529 473.054 Q207.183 475.02 202.291 475.02 Q194.069 475.02 187.666 471.331 Q181.28 467.642 177.64 461.045 Q174 454.431 174 446.111 Q174 437.678 177.38 431.08 Q180.76 424.483 186.837 420.794 Q192.931 417.089 200.731 417.089 Z M200.731 422.923 Q192.623 422.923 187.049 428.334 Q181.491 433.729 180.451 442.569 L220.897 442.569 Q220.183 433.729 214.657 428.334 Q209.149 422.923 200.731 422.923 Z M277.12 416.991 Q285.229 416.991 291.875 420.794 Q298.538 424.58 302.34 431.243 Q306.142 437.889 306.142 446.111 L306.142 471.38 Q306.142 472.729 305.298 473.623 Q304.469 474.5 303.022 474.5 Q301.657 474.5 300.78 473.623 Q299.902 472.729 299.902 471.38 L299.902 463.271 Q296.457 468.78 290.477 471.949 Q284.498 475.118 277.12 475.118 Q268.897 475.118 262.235 471.331 Q255.589 467.529 251.786 460.882 Q248 454.22 248 446.111 Q248 437.889 251.786 431.243 Q255.589 424.58 262.235 420.794 Q268.897 416.991 277.12 416.991 Z M277.12 469.3 Q283.571 469.3 288.771 466.294 Q293.971 463.271 296.929 457.974 Q299.902 452.66 299.902 446.111 Q299.902 439.562 296.929 434.265 Q293.971 428.951 288.771 425.88 Q283.571 422.809 277.12 422.809 Q270.669 422.809 265.469 425.88 Q260.269 428.951 257.246 434.265 Q254.24 439.562 254.24 446.111 Q254.24 452.66 257.246 457.974 Q260.269 463.271 265.469 466.294 Q270.669 469.3 277.12 469.3 Z M353.131 416.991 Q361.029 416.991 361.029 420.42 Q361.029 420.94 360.931 421.249 Q360.623 422.402 359.94 422.874 Q359.257 423.329 358.12 423.329 Q357.178 423.329 355.666 423.134 Q354.171 422.923 353.131 422.923 Q347.931 422.923 343.869 425.1 Q339.822 427.277 337.531 431.129 Q335.24 434.98 335.24 439.757 L335.24 471.38 Q335.24 472.729 334.411 473.623 Q333.582 474.5 332.12 474.5 Q330.771 474.5 329.877 473.623 Q329 472.729 329 471.38 L329 420.729 Q329 419.283 329.877 418.454 Q330.771 417.609 332.12 417.609 Q333.582 417.609 334.411 418.454 Q335.24 419.283 335.24 420.729 L335.24 427.18 Q338.262 422.402 342.942 419.705 Q347.623 416.991 353.131 416.991 Z" fill-rule="evenodd"></path></svg><b class="gz-logo-zero">zero</b></span>
+<span class="gz-start-cta"><span data-en="Start building">Start building</span><svg aria-hidden="true" class="gz-start-arrow" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-width="3" viewbox="0 0 24 24" width="15"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ PROJECT TICKER ============ -->
+<section aria-hidden="true" class="ticker">
+<div class="marquee-track" id="marquee-track"></div>
+</section>
+<!-- ============ DIRECTIONS ============ -->
+<section class="section" id="directions">
+<div class="container">
+<div class="reveal">
+<p class="eyebrow" data-en="What we build">What we build</p>
+<h2 data-en="Directions">Directions</h2>
+</div>
+<div class="bento">
+<!-- Create Games with AI (flagship) -->
+<div class="cell image-cell span-4 reveal">
+<div aria-hidden="true" class="game-bg">
+<svg class="game-city" preserveaspectratio="xMidYMax slice" viewbox="0 0 800 180">
+<defs>
+<!-- Crayon fire: pale core through purple into pink -->
+<lineargradient id="flame-grad" x1="1" x2="0" y1="0" y2="1">
+<stop offset="0" stop-color="#fff8c2"></stop>
+<stop offset="0.45" stop-color="#ffe72e"></stop>
+<stop offset="1" stop-color="#ff86ad"></stop>
+</lineargradient>
+<radialgradient id="burn-glow-grad">
+<stop offset="0" stop-color="#ffe72e" stop-opacity="0.8"></stop>
+<stop offset="1" stop-color="#ff86ad" stop-opacity="0"></stop>
+</radialgradient>
+</defs>
+<!-- building silhouettes -->
+<g fill="#ffffff" stroke="#1a1a1a" stroke-linejoin="round" stroke-width="2">
+<rect height="85" width="52" x="0" y="95"></rect>
+<rect height="120" width="34" x="40" y="60"></rect>
+<rect height="70" width="46" x="86" y="110"></rect>
+<rect height="105" width="30" x="120" y="75"></rect>
+<polygon points="150,180 150,70 165,52 180,70 180,180"></polygon>
+<rect height="80" width="40" x="185" y="100"></rect>
+<rect height="125" width="26" x="230" y="55"></rect>
+<rect height="90" width="44" x="252" y="90"></rect>
+<rect height="60" width="36" x="300" y="120"></rect>
+<rect height="140" width="30" x="336" y="40"></rect>
+<rect height="85" width="48" x="372" y="95"></rect>
+<rect height="115" width="28" x="424" y="65"></rect>
+<rect height="75" width="42" x="452" y="105"></rect>
+<!-- destroyed tower: blasted jagged top -->
+<polygon points="498,180 498,62 505,52 511,66 518,50 525,60 530,180"></polygon>
+<rect height="90" width="40" x="534" y="90"></rect>
+<rect height="65" width="46" x="578" y="115"></rect>
+<rect height="110" width="28" x="622" y="70"></rect>
+<rect height="85" width="44" x="654" y="95"></rect>
+<rect height="125" width="30" x="700" y="55"></rect>
+<rect height="80" width="66" x="734" y="100"></rect>
+</g>
+<!-- antennas with beacon lights -->
+<g stroke="#1a1a1a" stroke-linecap="round" stroke-width="2">
+<line x1="351" x2="351" y1="42" y2="16"></line>
+<line x1="165" x2="165" y1="54" y2="36"></line>
+</g>
+<circle cx="351" cy="14" fill="#ff86ad" r="3.5" stroke="#1a1a1a" stroke-width="2"></circle>
+<circle cx="165" cy="34" fill="#ffe72e" r="3.5" stroke="#1a1a1a" stroke-width="2"></circle>
+<!-- lit windows -->
+<g fill="#1a1a1a">
+<rect height="5" width="4" x="46" y="70"></rect>
+<rect height="5" width="4" x="58" y="84"></rect>
+<rect height="5" width="4" x="126" y="86"></rect>
+<rect height="5" width="4" x="238" y="66"></rect>
+<rect height="5" width="4" x="344" y="52"></rect>
+<rect height="5" width="4" x="352" y="76"></rect>
+<rect height="5" width="4" x="430" y="78"></rect>
+<rect height="5" width="4" x="506" y="62"></rect>
+<rect height="5" width="4" x="546" y="102"></rect>
+<rect height="5" width="4" x="708" y="68"></rect>
+<rect height="5" width="4" x="744" y="112"></rect>
+</g>
+<g fill="#ffe72e">
+<rect height="5" width="4" x="10" y="106"></rect>
+<rect height="5" width="4" x="64" y="98"></rect>
+<rect height="5" width="4" x="160" y="80"></rect>
+<rect height="5" width="4" x="196" y="112"></rect>
+<rect height="5" width="4" x="262" y="102"></rect>
+<rect height="5" width="4" x="384" y="108"></rect>
+<rect height="5" width="4" x="462" y="118"></rect>
+<rect height="5" width="4" x="588" y="128"></rect>
+<rect height="5" width="4" x="630" y="84"></rect>
+<rect height="5" width="4" x="714" y="92"></rect>
+</g>
+<g fill="#ff86ad">
+<rect height="5" width="4" x="26" y="120"></rect>
+<rect height="5" width="4" x="98" y="122"></rect>
+<rect height="5" width="4" x="242" y="90"></rect>
+<rect height="5" width="4" x="310" y="132"></rect>
+<rect height="5" width="4" x="346" y="96"></rect>
+<rect height="5" width="4" x="438" y="98"></rect>
+<rect height="5" width="4" x="510" y="86"></rect>
+<rect height="5" width="4" x="558" y="116"></rect>
+<rect height="5" width="4" x="664" y="108"></rect>
+<rect height="5" width="4" x="762" y="130"></rect>
+</g>
+<!-- burning tower: glow + flames where the breath hits mid-tower -->
+<circle class="burn-glow" cx="514" cy="140" fill="url(#burn-glow-grad)" r="30"></circle>
+<g fill="url(#flame-grad)">
+<polygon class="burn-flame" points="500,148 506,126 512,148"></polygon>
+<polygon class="burn-flame f2" points="510,150 517,122 524,150"></polygon>
+<polygon class="burn-flame f3" points="521,148 527,130 532,148"></polygon>
+</g>
+<!-- dragon fire breath, aimed down-left into the tower -->
+<polygon class="flame-outer" fill="url(#flame-grad)" opacity="0.85" points="570,118 496,128 528,158"></polygon>
+<polygon class="flame-inner" fill="#fff8c2" opacity="0.95" points="570,118 508,132 528,148"></polygon>
+<!-- the dragon, flying low between the towers -->
+<g transform="translate(0,92)">
+<g class="dragon" stroke="#1a1a1a" stroke-linejoin="round" stroke-width="2">
+<path class="wing-back" d="M624 28 Q640 6 662 4 Q650 20 640 30 Z" fill="#e0c81f"></path>
+<ellipse cx="618" cy="32" fill="#ff86ad" rx="22" ry="8"></ellipse>
+<polygon fill="#ff86ad" points="636,30 668,20 688,8 664,28 642,38"></polygon>
+<polygon fill="#ff86ad" points="584,22 602,26 600,35 586,31"></polygon>
+<polygon fill="#ff86ad" points="570,26 588,19 592,30 578,33"></polygon>
+<polygon fill="#ff86ad" points="586,19 590,11 593,20"></polygon>
+<polygon fill="#ff86ad" points="606,38 602,48 610,44 612,39"></polygon>
+<polygon fill="#ff86ad" points="622,39 620,49 628,44 628,39"></polygon>
+<path class="wing-front" d="M610 28 Q620 2 648 0 Q634 18 630 30 Z" fill="#ffe72e"></path>
+<rect fill="#1a1a1a" height="3" stroke="none" width="3" x="579" y="23"></rect>
+</g>
+</g>
+</svg>
+<div class="game-grid"></div>
+</div>
+<div class="cell-shade"></div>
+<div class="cell-body">
+<h3 data-en="Create Games with AI">Create Games with AI</h3>
+<p data-en="AI agents that design, code, and ship playable games side by side with creators.">AI agents that design, code, and ship playable games side by side with creators.</p>
+<div class="chips">
+<a class="chip chip-featured" data-en="Gear Zero" href="https://zero.personalab.ai/" rel="noopener" target="_blank">Gear Zero<em class="chip-hot" data-en="HOT!">HOT!</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip chip-featured" data-en="Synthetic World" href="https://society.personagames.online/" rel="noopener" target="_blank">Synthetic World<em class="chip-hot" data-en="HOT!">HOT!</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="Auto BG" href="https://arxiv.org/pdf/2606.01976" rel="noopener" target="_blank">Auto BG<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="JAMER" href="https://arxiv.org/pdf/2606.19830" rel="noopener" target="_blank">JAMER<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+</div>
+</div>
+</div>
+<!-- World Model -->
+<div class="cell tint-corner video-cell span-2 reveal">
+<div aria-hidden="true" class="cell-video-wall" id="wm-video-wall"></div>
+<div aria-hidden="true" class="cell-video-shade"></div>
+<h3 data-en="World Model">World Model</h3>
+<p data-en="Building playable worlds on demand, instantly.">Building playable worlds on demand, instantly.</p>
+<div class="chips">
+<a class="chip chip-featured" data-en="Persona-Evoke" href="https://evoke-world.github.io/Evoke/" rel="noopener" target="_blank">Persona-Evoke<em class="chip-hot" data-en="HOT!">HOT!</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip chip-featured" data-en="Marionette" href="https://personalab.github.io/Marionette/" rel="noopener" target="_blank">Marionette<em class="chip-hot" data-en="HOT!">HOT!</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip chip-featured" data-en="Persona World" href="https://persona-lab.github.io/PersonaWorld/" rel="noopener" target="_blank">Persona World<em class="chip-hot" data-en="HOT!">HOT!</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip highlight" data-en="Sekai2" href="https://kangverse.github.io/sekai2-project/" rel="noopener" target="_blank">Sekai2<em class="chip-new" data-en="NEW">NEW</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip highlight" data-en="WorldRover" href="https://personalab.github.io/WorldRover/" rel="noopener" target="_blank">WorldRover<em class="chip-new" data-en="NEW">NEW</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip highlight" data-en="ShadowDancer" href="https://shadowdancer-1.github.io/" rel="noopener" target="_blank">ShadowDancer<em class="chip-new" data-en="NEW">NEW</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip highlight" data-en="MASS" href="https://persona-lab.github.io/MASS/" rel="noopener" target="_blank">MASS<em class="chip-new" data-en="NEW">NEW</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="Wild World" href="https://persona-studio.github.io/wildworld-project/" rel="noopener" target="_blank">Wild World<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="PackForcing" href="https://arxiv.org/abs/2603.25730" rel="noopener" target="_blank">PackForcing<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="World Mark" href="https://persona-studio.github.io/WorldMark/" rel="noopener" target="_blank">World Mark<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="Surprise Forcing" href="https://arxiv.org/abs/2607.18436v1" rel="noopener" target="_blank">Surprise Forcing<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="Interactive Game World" href="https://arxiv.org/abs/2607.14076" rel="noopener" target="_blank">Interactive Game World<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="YoCausal" href="https://www.youzhexie.me/papers/YoCausal/index.html" rel="noopener" target="_blank">YoCausal<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+</div>
+</div>
+<!-- World Compilation and Rendering -->
+<div class="cell tint-corner video-cell span-2 reveal">
+<!-- AAA game editing: each row pairs the original footage with its edited version -->
+<div aria-hidden="true" class="cell-video-grid" id="gr-video-grid">
+<video loop="" muted="" playsinline="" poster="/assets/gr-1.svg" preload="none"></video>
+<video loop="" muted="" playsinline="" poster="/assets/gr-2.svg" preload="none"></video>
+<video loop="" muted="" playsinline="" poster="/assets/gr-3.svg" preload="none"></video>
+<video loop="" muted="" playsinline="" poster="/assets/gr-4.svg" preload="none"></video>
+</div>
+<div aria-hidden="true" class="cell-video-shade"></div>
+<h3 data-en="World Compilation and Rendering">World Compilation and Rendering</h3>
+<p data-en="Compiling worlds into structured states, brought to life through generative rendering.">Compiling worlds into structured states, brought to life through generative rendering.</p>
+<div class="chips">
+<a class="chip chip-featured" data-en="Programmable World Model" href="https://persona-lab.github.io/pwm/" rel="noopener" target="_blank">Programmable World Model<em class="chip-hot" data-en="HOT!">HOT!</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip highlight" data-en="WorldSculpt" href="https://persona-lab.github.io/WorldSculpt" rel="noopener" target="_blank">WorldSculpt<em class="chip-new" data-en="NEW">NEW</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip highlight" data-en="PersonaRenderer-Flash" href="https://persona-renderer-flash.personalab.ai/" rel="noopener" target="_blank">PersonaRenderer-Flash<em class="chip-new" data-en="NEW">NEW</em> <svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="Persona Render" href="https://persona-studio.github.io/renderer/" rel="noopener" target="_blank">Persona Render<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+</div>
+</div>
+<!-- Game Agent -->
+<div class="cell tint-grid video-cell span-2 reveal" style="min-height: 240px;">
+<!-- AgenticSTS "Watch it play" gameplay moments -->
+<div aria-hidden="true" class="cell-video-grid">
+<video loop="" muted="" playsinline="" poster="/assets/ag-1.svg" preload="none"></video>
+<video loop="" muted="" playsinline="" poster="/assets/ag-2.svg" preload="none"></video>
+<video loop="" muted="" playsinline="" poster="/assets/ag-3.svg" preload="none"></video>
+<video loop="" muted="" playsinline="" poster="/assets/ag-4.svg" preload="none"></video>
+</div>
+<div aria-hidden="true" class="cell-video-shade"></div>
+<h3 data-en="Game Agent">Game Agent</h3>
+<p data-en="Agents that learn, adapt, and master games alongside human players.">Agents that learn, adapt, and master games alongside human players.</p>
+<div class="chips">
+<a class="chip" data-en="AgenticSTS" href="https://personalab.github.io/AgenticSTS/" rel="noopener" target="_blank">AgenticSTS<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="MeepleLM" href="https://github.com/leroy9472/MeepleLM" rel="noopener" target="_blank">MeepleLM<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+</div>
+</div>
+<!-- Digital Human -->
+<div class="cell dh-art span-2 reveal">
+<h3 data-en="Digital Human">Digital Human</h3>
+<p data-en="Lifelike AI-driven characters that see, talk, and interact in real time.">Lifelike AI-driven characters that see, talk, and interact in real time.</p>
+<div class="chips">
+<a class="chip" data-en="MIO" href="https://arxiv.org/pdf/2512.13674" rel="noopener" target="_blank">MIO<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="FloodDiffusion" href="https://arxiv.org/pdf/2512.03520" rel="noopener" target="_blank">FloodDiffusion<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="UniLS" href="https://xg-chu.site/project_unils/" rel="noopener" target="_blank">UniLS<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="Living the Novel" href="https://arxiv.org/pdf/2512.07474" rel="noopener" target="_blank">Living the Novel<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ SOLUTIONS ============ -->
+<section class="section" id="solutions" style="padding-top: 0;">
+<div class="container">
+<div class="reveal">
+<p class="eyebrow" data-en="What we offer">What we offer</p>
+<h2 data-en="Product">Product</h2>
+</div>
+<div class="sol-grid">
+<!-- Gear Zero (flagship, full width) — copy adapted from zero.personalab.ai -->
+<div class="cell svc-feature reveal">
+<div class="svc-feature-layout">
+<div class="svc-feature-copy">
+<p class="svc-kicker" data-en="Live now">Live now</p>
+<h3 data-en="Gear Zero">Gear Zero</h3>
+<p class="svc-lead" data-en="Chat with your friends, and the game gets made along the way.">Chat with your friends, and the game gets made along the way.</p>
+<p class="svc-feature-summary" data-en="Describe a game together. Gear plans it, builds it, and turns each conversation into a playable version in minutes.">Describe a game together. Gear plans it, builds it, and turns each conversation into a playable version in minutes.</p>
+<p class="svc-feature-note" data-en="Keep talking while Gear works. It remembers the room, gathers every new idea, and builds the next playable version without losing the conversation.">Keep talking while Gear works. It remembers the room, gathers every new idea, and builds the next playable version without losing the conversation.</p>
+<div class="svc-benefits">
+<span data-en="Create together">Create together</span>
+<span data-en="Build in minutes">Build in minutes</span>
+<span data-en="Play instantly">Play instantly</span>
+</div>
+<a class="svc-cta" data-en="Open a room" href="https://zero.personalab.ai/" rel="noopener" target="_blank">Open a room<svg aria-hidden="true" fill="none" height="15" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="15"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+</div>
+<div class="svc-feature-media">
+<video aria-label="Gear Zero preview" loop="" muted="" playsinline="" poster="/assets/svc-gear.svg" preload="none"></video>
+</div>
+</div>
+</div>
+<div class="cell svc-synthetic reveal" id="synthetic-world-service">
+<div class="svc-synthetic-copy">
+<h3 data-en="Synthetic World">Synthetic World</h3>
+<p class="svc-synthetic-lead" data-en="What if you could rewrite any story — and watch the world react?">What if you could rewrite any story — and watch the world react?</p>
+<p class="svc-synthetic-examples" data-en="Save the Titanic. Stop Darth Vader from turning evil. Let Thanos lose.">Save the Titanic. Stop Darth Vader from turning evil. Let Thanos lose.</p>
+<p data-en="Then watch what happens next.">Then watch what happens next.</p>
+<p data-en="In Synthetic World, AI residents actually live in these alternate timelines. They post, argue, form relationships, remember what happened, and make their own decisions.">In Synthetic World, AI residents actually live in these alternate timelines. They post, argue, form relationships, remember what happened, and make their own decisions.</p>
+<p class="svc-synthetic-closing" data-en="You don’t just rewrite the story. You rewrite the world.">You don’t just rewrite the story. You rewrite the world.</p>
+<a class="svc-cta" data-en="Enter Synthetic World" href="https://society.personagames.online/" rel="noopener" target="_blank">Enter Synthetic World<svg aria-hidden="true" fill="none" height="15" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="15"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+</div>
+<div class="svc-synthetic-media">
+<video aria-label="Synthetic World preview" loop="" muted="" playsinline="" poster="/assets/svc-syn.svg" preload="none"></video>
+</div>
+</div>
+<div class="cell reveal">
+<h3 data-en="Custom Model Development">Custom Model Development</h3>
+<p data-en="Models built for your request.">Models built for your request.</p>
+<div class="chips">
+<span class="chip" data-en="Game Agent">Game Agent</span>
+<span class="chip" data-en="World Model">World Model</span>
+<span class="chip" data-en="Generative Rendering">Generative Rendering</span>
+<span class="chip" data-en="Digital Human">Digital Human</span>
+</div>
+</div>
+<div class="cell reveal">
+<h3 data-en="Data Engine">Data Engine</h3>
+<p data-en="Production-grade datasets, all with fine-grained annotations.">Production-grade datasets, all with fine-grained annotations.</p>
+<div class="chips">
+<span class="chip" data-en="Rendering data">Rendering data</span>
+<span class="chip" data-en="World model data">World model data</span>
+<span class="chip" data-en="Game data">Game data</span>
+<span class="chip" data-en="Digital human data">Digital human data</span>
+</div>
+</div>
+<div class="cell reveal">
+<h3 data-en="Game Creation Platform">Game Creation Platform</h3>
+<p data-en="An agent platform where teams direct AI to build, iterate, and ship games end to end.">An agent platform where teams direct AI to build, iterate, and ship games end to end.</p>
+</div>
+<div class="cell reveal">
+<h3 data-en="AI-Native Games">AI-Native Games</h3>
+<p data-en="Original titles designed around AI from day one, with worlds and characters that only AI makes possible.">Original titles designed around AI from day one, with worlds and characters that only AI makes possible.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ BLOG (compact placeholder) ============ -->
+<section class="section blog" id="blog" style="padding-top: 0;">
+<div class="container">
+<div class="blog-row reveal">
+<div>
+<p class="eyebrow" data-en="What we think">What we think</p>
+<h2 data-en="AI-Native Game Engineering Infrastructure">AI-Native Game Engineering Infrastructure</h2>
+</div>
+<span class="chip highlight blog-soon-tag" data-en="Coming soon">Coming soon</span>
+</div>
+</div>
+</section>
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+<div class="about-inner reveal">
+<h2 data-en="Gamers, creators, and AI experts">Gamers, creators, and AI experts</h2>
+<p class="lead" data-en="Founded in 2026, we are a group of game enthusiasts, AI researchers, and creators from different fields, united by one belief: AI will redefine the future of games.">Founded in 2026, we are a group of game enthusiasts, AI researchers, and creators from different fields, united by one belief: AI will redefine the future of games.</p>
+<p class="past-label" data-en="Selected past research projects we led">Selected past research projects we led</p>
+<div class="chips">
+<a class="chip" data-en="YUME &amp; YUME 1.5" href="https://stdstu12.github.io/YUME-Project/" rel="noopener" target="_blank">YUME &amp; YUME 1.5<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="Sekai" href="https://lixsp11.github.io/sekai-project/" rel="noopener" target="_blank">Sekai<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="Think or Not Think" href="https://github.com/minglllli/CLS-RL" rel="noopener" target="_blank">Think or Not Think<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="ProSoftArena" href="https://prosoftarena.github.io/" rel="noopener" target="_blank">ProSoftArena<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="LongCLI-Bench" href="https://github.com/finyorko/longcli-bench" rel="noopener" target="_blank">LongCLI-Bench<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="PyVision &amp; PyVision-RL" href="https://agent-x.space/" rel="noopener" target="_blank">PyVision &amp; PyVision-RL<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="MMT-Bench" href="https://arxiv.org/pdf/2404.16006" rel="noopener" target="_blank">MMT-Bench<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="MMIU" href="https://arxiv.org/abs/2408.02718" rel="noopener" target="_blank">MMIU<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="OpenING" href="https://opening-benchmark.github.io/" rel="noopener" target="_blank">OpenING<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+</div>
+<p class="past-label" data-en="Selected past research projects we participated in">Selected past research projects we participated in</p>
+<div class="chips">
+<a class="chip" data-en="InternVL" href="https://github.com/OpenGVLab/InternVL" rel="noopener" target="_blank">InternVL<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="MM-EUREKA" href="https://github.com/ModalMinds/MM-EUREKA" rel="noopener" target="_blank">MM-EUREKA<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="OmniWorld" href="https://yangzhou24.github.io/OmniWorld/" rel="noopener" target="_blank">OmniWorld<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="Stream-DiffVSR" href="https://jamichss.github.io/stream-diffvsr-project-page/" rel="noopener" target="_blank">Stream-DiffVSR<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="OmniQuant" href="https://github.com/OpenGVLab/OmniQuant" rel="noopener" target="_blank">OmniQuant<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="LVLM-eHub" href="https://arxiv.org/pdf/2306.09265" rel="noopener" target="_blank">LVLM-eHub<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="Meta-Transformer" href="https://kxgong.github.io/meta_transformer/" rel="noopener" target="_blank">Meta-Transformer<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="OneLLM" href="https://github.com/csuhan/OneLLM" rel="noopener" target="_blank">OneLLM<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<a class="chip" data-en="GUIOdyssey" href="https://huggingface.co/datasets/hflqf88888/GUIOdyssey" rel="noopener" target="_blank">GUIOdyssey<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="14"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+</div>
+<p class="more-note">更多早期研究，请访问核心成员 <a data-en="Kaipeng Zhang" href="https://kpzhang93.github.io/" rel="noopener" target="_blank">Kaipeng Zhang</a> 与 <a data-en="Zhixiang Wang" href="https://lightchaserx.github.io/" rel="noopener" target="_blank">Zhixiang Wang</a> 的个人主页。</p>
+</div>
+</section>
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+<div aria-hidden="true" class="contact-glow"></div>
+<div class="contact-inner reveal">
+<h2>与我们一起<br/>构建游戏的未来。</h2>
+<p data-en="Partnerships, research collaborations, and open roles.">Partnerships, research collaborations, and open roles.</p>
+<a class="btn-primary" data-en="Get in touch" href="https://docs.google.com/forms/d/e/1FAIpQLSeB6OECRShKuZrSufdVFovpX3vko7G9uniNJ7kd0TMMVWRCIg/viewform?usp=header" rel="noopener" target="_blank">Get in touch</a>
+</div>
+</section>
+<!-- ============ FOOTER ============ -->
+<footer>
+<div class="footer-grid">
+<div>
+<a class="brand" href="#">
+<svg aria-hidden="true" class="brand-mark" fill="none" height="42" viewbox="44 8 126 164" width="32">
+<path d="M52 118 C 78 96 120 88 148 90 C 168 92 166 108 148 112 C 126 117 108 120 106 136 C 104 152 96 162 90 166" style="stroke: var(--logo-accent, #ff86ad)" stroke-linecap="round" stroke-width="7.5"></path>
+<circle cx="84" cy="47" fill="currentColor" r="6.5"></circle>
+<path d="M88 54 C 100 40 118 24 132 12 C 118 27 106 44 99 57 Z" fill="currentColor"></path>
+<path d="M81 53 C 76 65 90 77 86 92 C 82 107 80 125 86 140 C 92 125 95 107 93 92 C 96 77 94 65 89 53 Z" fill="currentColor"></path>
+</svg>
+<span class="brand-name">PERSONA<b data-en="LAB">LAB</b></span>
+</a>
+<p class="mission" data-en="The next generation of game engineering and game intelligence.">The next generation of game engineering and game intelligence.</p>
+<div class="socials">
+<a aria-label="GitHub" href="https://github.com/PersonaLab" rel="noopener" target="_blank">
+<svg aria-hidden="true" fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.05.78 2.12 0 1.53-.01 2.77-.01 3.15 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"></path></svg>
+</a>
+<a aria-label="Hugging Face" href="https://huggingface.co/PersonaLab" rel="noopener" target="_blank">
+<svg aria-hidden="true" height="26" viewbox="0 0 32 32" width="26"><circle cx="16" cy="17" fill="#ffd21e" r="11"></circle><circle cx="11.5" cy="15.5" fill="#3a2c00" r="1.6"></circle><circle cx="20.5" cy="15.5" fill="#3a2c00" r="1.6"></circle><path d="M11 20c0 2.8 2.2 5 5 5s5-2.2 5-5c0-.6-.5-1-1.1-.8-1 .3-2.4.6-3.9.6s-2.9-.3-3.9-.6C11.5 19 11 19.4 11 20z" fill="#3a2c00"></path><circle cx="7.5" cy="18.5" fill="#ff9d0b" r="1.8"></circle><circle cx="24.5" cy="18.5" fill="#ff9d0b" r="1.8"></circle></svg>
+</a>
+<a aria-label="X" href="https://x.com/personastd" rel="noopener" target="_blank">
+<svg aria-hidden="true" fill="currentColor" height="18" viewbox="0 0 24 24" width="18"><path d="M18.9 1.5h3.7l-8.1 9.2 9.5 12.6h-7.4l-5.8-7.6-6.7 7.6H.4l8.6-9.9L-.1 1.5h7.6l5.2 6.9zM17.6 21.1h2.1L6.5 3.7H4.3z"></path></svg>
+</a>
+</div>
+</div>
+<div>
+<p class="col-title" data-en="Directions">Directions</p>
+<ul>
+<li><a data-en="World Model" href="#directions">World Model</a></li>
+<li><a data-en="Create Games with AI" href="#directions">Create Games with AI</a></li>
+<li><a data-en="World Compilation and Rendering" href="#directions">World Compilation and Rendering</a></li>
+<li><a data-en="Game Agent" href="#directions">Game Agent</a></li>
+<li><a data-en="Digital Human" href="#directions">Digital Human</a></li>
+</ul>
+</div>
+<!-- No column heading here; .footer-col-bare keeps its list level with the
+           headed column beside it. -->
+<div class="footer-col-bare">
+<ul>
+<li><a data-en="Product" href="#solutions">Product</a></li>
+<li><a data-en="Blog" href="#blog">Blog</a></li>
+<li><a data-en="About" href="#about">About</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom" data-en="2026 Persona Lab. All rights reserved.">2026 Persona Lab. All rights reserved.</div>
+</footer>
+<script defer="" src="/assets/site.js"></script>
+</body></html>

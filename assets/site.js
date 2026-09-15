@@ -370,8 +370,8 @@
       var saved = null;
       try { saved = localStorage.getItem('persona-lang'); } catch (e) {}
       if (!saved) {
-        var nav = (navigator.language || 'ja').toLowerCase();
-        saved = nav.indexOf('zh') === 0 ? 'zh' : 'ja';
+        /* Default to Japanese; the switcher (persisted) is the only override. */
+        saved = 'ja';
       }
       setLang(saved, false);
       window.addEventListener('resize', fitHeadline);

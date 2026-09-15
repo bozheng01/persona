@@ -1585,6 +1585,8 @@
   /* ---- About ------------------------------------------------------------ */
   .about { background: #fdf0dd; border: 0; }
   /* About: company profile */
+  .about-inner { max-width: 1120px; }
+  .about .lead, .about .about-inner > p { max-width: 48rem; }
   .about h2 { text-transform: none; }
   .about .about-h3 {
     margin-top: 48px;
@@ -1596,45 +1598,50 @@
     line-height: 1.1;
   }
   .about .profile-grid {
-    margin-top: 22px;
-    border-top: 1px solid var(--ink-15);
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 26px 64px;
   }
-  .about .profile-grid > div {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 24px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--ink-15);
+  @media (min-width: 768px) {
+    .about .profile-grid { grid-template-columns: 1fr 1fr; }
   }
-  .about .profile-grid span {
-    flex: none;
-    width: 160px;
-    font-family: var(--ui);
-    font-size: 0.75rem;
+  .about .profile-col { display: flex; flex-direction: column; gap: 24px; }
+  .about .profile-row {
+    display: grid;
+    grid-template-columns: 124px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .about .profile-row > span {
+    font-size: 1rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--orange);
+    line-height: 1.6;
+    color: var(--ink);
   }
-  .about .profile-grid strong {
-    flex: 1;
-    min-width: 220px;
-    font-weight: 600;
-    line-height: 1.5;
+  .about .profile-row > p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
   }
-  .about .about-list {
-    margin-top: 18px;
-    padding-left: 22px;
+  .about .profile-row .about-list {
+    margin: 0;
+    padding-left: 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
   .about .about-list li {
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: var(--ink);
   }
   .about .about-list li::marker { color: var(--orange); font-weight: 700; }
+  @media (max-width: 479px) {
+    .about .profile-row { grid-template-columns: 104px 1fr; gap: 14px; }
+    .about .profile-grid { gap: 22px; }
+  }
   .about .about-inner > p:not(.lead) { margin-top: 16px; }
 
   /* ---- Contact ---------------------------------------------------------- */

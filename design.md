@@ -1,4 +1,4 @@
-# Persona Lab 设计规范（Design Spec）
+# Persona.ai 设计规范（Design Spec）
 
 > 本文档是**唯一设计依据**。任何新增页面前必须先阅读本文件并严格遵循，
 > 保证整个项目风格统一。实现层面所有值都能在 `assets/site.css` 中找到对应

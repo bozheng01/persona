@@ -1493,6 +1493,7 @@
     box-shadow: 0 2px 18px rgba(36, 30, 26, 0.05);
   }
   .brand-name { font-family: var(--display); font-size: 1.3rem; font-weight: 800; letter-spacing: 0.01em; text-transform: uppercase; }
+  .brand-name { text-transform: none; }
   .brand-name b { background: var(--orange); color: #ffffff; border-radius: 6px; }
   .nav-links a { text-transform: uppercase; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; }
   .nav-links a::after { height: 2px; background: var(--orange); }
@@ -1583,6 +1584,58 @@
 
   /* ---- About ------------------------------------------------------------ */
   .about { background: #fdf0dd; border: 0; }
+  /* About: company profile */
+  .about h2 { text-transform: none; }
+  .about .about-h3 {
+    margin-top: 48px;
+    font-family: var(--display);
+    font-size: 1.375rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  .about .profile-grid {
+    margin-top: 22px;
+    border-top: 1px solid var(--ink-15);
+  }
+  .about .profile-grid > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--ink-15);
+  }
+  .about .profile-grid span {
+    flex: none;
+    width: 160px;
+    font-family: var(--ui);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--orange);
+  }
+  .about .profile-grid strong {
+    flex: 1;
+    min-width: 220px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .about .about-list {
+    margin-top: 18px;
+    padding-left: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .about .about-list li {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .about .about-list li::marker { color: var(--orange); font-weight: 700; }
+  .about .about-inner > p:not(.lead) { margin-top: 16px; }
 
   /* ---- Contact ---------------------------------------------------------- */
   .contact-glow { border: 0; box-shadow: var(--pop-lg); }

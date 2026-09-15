@@ -141,7 +141,26 @@
           /* contact + footer */
           'Partnerships, research collaborations, and open roles.': '合作洽谈、研究联合，以及开放职位。',
           'The next generation of game engineering and game intelligence.': '下一代游戏工程与游戏智能。',
-          '2026 Persona Lab. All rights reserved.': '2026 Persona Lab. 保留所有权利。'
+          '2026 Persona.ai. All rights reserved.': '2026 Persona.ai. 保留所有权利。',
+          /* about: company profile */
+          'Persona.ai Co., Ltd.': '株式会社Persona.ai',
+          'Persona.ai is a company that aims to bring AI technology to society across fields such as apparel, games, robots, and real estate, building on R&D in personal AI and physical AI.': '株式会社Persona.ai 是一家以个人AI与物理AI的研究开发为基础，致力于在服装、游戏、机器人、房地产等各领域实现AI技术社会化的公司。',
+          'Through planning, development, operation support and consulting of AI-powered products and services, we support companies in creating new businesses and driving business transformation.': '我们通过运用AI技术的产品与服务之企划、开发、运营支持及咨询，助力企业创造新业务并推动业务变革。',
+          'Company Profile': '公司信息',
+          'Company Name': '公司名称',
+          'Established': '成立时间',
+          'Representative Director': '代表董事',
+          'Location': '所在地',
+          'Capital': '资本金',
+          'Business Activities': '业务内容',
+          'R&D of technologies related to personal AI and physical AI.': '关于个人AI与物理AI技术的研究与开发',
+          'Planning, development, operation support and consulting of AI-powered products and services in apparel, games, robots, real estate and other fields.': '在服装、游戏、机器人、房地产及其他各领域，运用AI的产品与服务之企划、开发、运营支持及咨询',
+          'Contract development of AI technologies, software and computer systems.': 'AI技术、软件及计算机系统的受托开发',
+          'Consulting on AI adoption, business improvement and digital transformation for enterprises.': '面向企业的AI导入支持、业务改善及数字化转型咨询',
+          'AI research and development, proof-of-concept (PoC) and new business development support.': 'AI相关的研究开发、实证实验（PoC）及新事业开发支持',
+          'Mission': '使命',
+          "We use AI technology to bring out each person's individuality.": '运用AI技术，将每个人的个性具象化。',
+          'Through intelligence born from interaction between people and their environment, we evolve machines into beings that are smarter and more attuned to humans.': '通过人与环境互动中产生的智能，让机器进化为更聪明、更贴近人类的伙伴。'
         },
         ja: {
           'Start building': '作りはじめる',
@@ -242,7 +261,7 @@
           'Selected past research projects we participated in': '私たちが参加した研究プロジェクト（一部）',
           'Partnerships, research collaborations, and open roles.': '協業、共同研究、採用について。',
           'The next generation of game engineering and game intelligence.': '次世代のゲームエンジニアリングとゲームインテリジェンス。',
-          '2026 Persona Lab. All rights reserved.': '2026 Persona Lab. All rights reserved.'
+          '2026 Persona.ai. All rights reserved.': '2026 Persona.ai. All rights reserved.'
         }
       };
 
@@ -351,8 +370,8 @@
       var saved = null;
       try { saved = localStorage.getItem('persona-lang'); } catch (e) {}
       if (!saved) {
-        var nav = (navigator.language || 'en').toLowerCase();
-        saved = nav.indexOf('zh') === 0 ? 'zh' : nav.indexOf('ja') === 0 ? 'ja' : 'en';
+        var nav = (navigator.language || 'ja').toLowerCase();
+        saved = nav.indexOf('zh') === 0 ? 'zh' : 'ja';
       }
       setLang(saved, false);
       window.addEventListener('resize', fitHeadline);

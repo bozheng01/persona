@@ -1,4 +1,4 @@
-# Persona Lab 站点复刻
+# Persona.ai 站点复刻
 
 原生 HTML + CSS + JS 的单页站点复刻，零依赖、零构建。
 架构与复用规范见 [structure.md](./structure.md)。

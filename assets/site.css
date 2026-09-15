@@ -213,7 +213,7 @@
   }
   @media (min-width: 1024px) { .nav-inner { padding: 0 40px; } }
   .brand { display: flex; align-items: center; gap: 12px; }
-  /* Persona Lab mark: the dancing figure, no sticker frame so it can render
+  /* Persona.ai mark: the dancing figure, no sticker frame so it can render
      large and legible in the header. */
   .brand-mark {
     flex: none;

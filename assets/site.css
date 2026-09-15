@@ -217,7 +217,10 @@
      large and legible in the header. */
   .brand-mark {
     flex: none;
-    color: var(--ink);
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+    object-fit: cover;
     transition: transform 0.14s ease;
   }
   .brand:hover .brand-mark { transform: rotate(-6deg); }
@@ -1646,7 +1649,7 @@
   @media (max-width: 404px) {
     .nav-inner { padding: 0 12px; gap: 8px; }
     .brand { gap: 6px; }
-    .brand-mark { width: 26px; height: 34px; }
+    .brand-mark { width: 28px; height: 28px; border-radius: 9px; }
     .brand-name { font-size: 0.9375rem; }
     .nav-right { gap: 8px; }
     .nav-cta { padding: 6px 10px; font-size: 0.75rem; }

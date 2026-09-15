@@ -24,7 +24,7 @@ index.html          # 页面结构（8 区块 + 内联 SVG）
 assets/site.css     # 设计系统 + 组件 + 动画
 assets/site.js      # i18n / 视频墙 / 轮播等
 assets/*.svg        # 占位 poster 与图标
-persona.svg         # favicon
+persona-app-icon.png # 品牌 app icon（主页 logo + favicon）
 scripts/gen_posters.py  # 重新生成占位 poster
 ```
 

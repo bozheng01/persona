@@ -24,8 +24,7 @@
 ```
 personahp/
 ├── index.html            # 唯一页面，全部 8 个区块与内联 SVG
-├── persona.svg           # 浅色 favicon（舞者 mark）
-├── persona_dark.svg      # 深色 favicon
+├── persona-app-icon.png # 品牌 app icon（主页 logo + favicon）
 ├── structure.md          # 本文档
 ├── assets/
 │   ├── site.css          # 唯一样式表（设计系统 + 组件 + 动画 + 响应式）

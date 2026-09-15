@@ -1538,6 +1538,21 @@
   .hero .btn-primary:hover { background: #fff3e2; }
   .hero .btn-ghost { color: #ffffff; border-color: rgba(255, 255, 255, 0.65); background: transparent; }
   .hero .btn-ghost:hover { background: rgba(255, 255, 255, 0.15); }
+  /* Decorative marks pinned to the four corners of the hero */
+  .hero-marks { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+  .hero-mark { position: absolute; width: 52px; height: 52px; opacity: 0.92; }
+  .hm-tl { top: 92px; left: 34px; }
+  .hm-tr { top: 92px; right: 34px; }
+  .hm-bl { bottom: 34px; left: 34px; }
+  .hm-br { bottom: 34px; right: 34px; }
+  @media (max-width: 1079px) {
+    .hm-bl, .hm-br { display: none; }
+  }
+  @media (max-width: 767px) {
+    /* Phones: the scene fills the top of the hero, so corner marks would sit on
+       the characters — drop them and keep the composition clean. */
+    .hero-mark { display: none; }
+  }
 
   /* ---- Buttons ---------------------------------------------------------- */
   .btn-primary, .btn-ghost { border: 0; box-shadow: var(--pop); padding: 14px 30px; font-weight: 700; }
@@ -1665,6 +1680,23 @@
   .footer-grid ul a:hover { color: #ffffff; }
   .footer-grid .socials a { color: #ffffff; }
   .footer-bottom { color: rgba(255, 255, 255, 0.7); border-top: 1px solid rgba(255, 255, 255, 0.22); }
+  .footer-brand { max-width: 24rem; }
+  .footer-nav { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .footer-nav a {
+    font-family: var(--display);
+    font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #ffffff;
+    transition: color 0.2s;
+  }
+  .footer-nav a:hover { color: var(--orange); }
+  @media (min-width: 768px) {
+    .footer-grid { grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
+    .footer-nav { align-items: flex-end; text-align: right; margin-top: 0; }
+  }
   .footer-grid { padding: 88px 28px; gap: 56px; }
   @media (min-width: 1024px) { .footer-grid { padding: 88px 48px; } }
 

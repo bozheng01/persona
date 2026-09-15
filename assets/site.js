@@ -140,7 +140,7 @@
           'Selected past research projects we participated in': '我们参与过的部分研究项目',
           /* contact + footer */
           'Partnerships, research collaborations, and open roles.': '合作洽谈、研究联合，以及开放职位。',
-          'The next generation of game engineering and game intelligence.': '下一代游戏工程与游戏智能。',
+          'Bringing personal AI and physical AI into society.': '以个人AI与物理AI，推动AI技术的社会化落地。',
           '2026 Persona.ai. All rights reserved.': '2026 Persona.ai. 保留所有权利。',
           /* about: company profile */
           'Persona.ai Co., Ltd.': '株式会社Persona.ai',
@@ -260,7 +260,7 @@
           'Selected past research projects we led': '私たちが主導した研究プロジェクト（一部）',
           'Selected past research projects we participated in': '私たちが参加した研究プロジェクト（一部）',
           'Partnerships, research collaborations, and open roles.': '協業、共同研究、採用について。',
-          'The next generation of game engineering and game intelligence.': '次世代のゲームエンジニアリングとゲームインテリジェンス。',
+          'Bringing personal AI and physical AI into society.': 'パーソナルAIとフィジカルAIで、AI技術の社会実装を進める。',
           '2026 Persona.ai. All rights reserved.': '2026 Persona.ai. All rights reserved.'
         }
       };
@@ -273,9 +273,9 @@
           ja: '人間 <span class="accent">&#215;</span> AI ＝ 個性；<br>人間 <span class="accent">&#215;</span> AI ＝ ロボット教育'
         },
         '.contact h2': {
-          en: 'Build the future of games<br>with us.',
-          zh: '与我们一起<br>构建游戏的未来。',
-          ja: 'ゲームの未来を<br>一緒に。'
+          en: 'Build the future<br>with AI.',
+          zh: '与AI一起<br>构建未来。',
+          ja: 'AIと共に、<br>未来をつくる。'
         },
         '.about .more-note': {
           en: 'For more of our earlier research, visit the homepages of our core members\n        <a href="https://kpzhang93.github.io/" target="_blank" rel="noopener">Kaipeng Zhang</a> and\n        <a href="https://lightchaserx.github.io/" target="_blank" rel="noopener">Zhixiang Wang</a>.',

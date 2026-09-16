@@ -497,6 +497,54 @@
       } else { start(); }
     })();
 
+    /* ---------- 我的衣柜 demo panel: drag it around by the top bar ---------- */
+    (function () {
+      var win = document.getElementById('gz-window');
+      if (!win) return;
+      var handle = win.querySelector('.gz-bar');
+      if (!handle) return;
+      var hero = win.closest('.hero');
+      var dx = 0, dy = 0, sx = 0, sy = 0, dragging = false;
+
+      handle.style.cursor = 'grab';
+      handle.style.touchAction = 'none';
+
+      function clamp() {
+        var maxX = (hero ? hero.clientWidth : window.innerWidth) * 0.3;
+        var maxY = (hero ? hero.clientHeight : window.innerHeight) * 0.16;
+        dx = Math.max(-maxX, Math.min(maxX, dx));
+        dy = Math.max(-maxY, Math.min(maxY, dy));
+      }
+      function apply() { win.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; }
+
+      function down(e) {
+        dragging = true;
+        sx = e.clientX - dx;
+        sy = e.clientY - dy;
+        handle.style.cursor = 'grabbing';
+        if (handle.setPointerCapture) handle.setPointerCapture(e.pointerId);
+        e.preventDefault();
+      }
+      function move(e) {
+        if (!dragging) return;
+        dx = e.clientX - sx;
+        dy = e.clientY - sy;
+        clamp();
+        apply();
+      }
+      function up(e) {
+        if (!dragging) return;
+        dragging = false;
+        handle.style.cursor = 'grab';
+        if (handle.releasePointerCapture) handle.releasePointerCapture(e.pointerId);
+      }
+
+      handle.addEventListener('pointerdown', down);
+      handle.addEventListener('pointermove', move);
+      handle.addEventListener('pointerup', up);
+      handle.addEventListener('pointercancel', up);
+    })();
+
     /* ---------- Project name ticker ---------- */
     (function () {
       var names = [

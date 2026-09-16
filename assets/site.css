@@ -1586,14 +1586,60 @@
   .btn-ghost:hover { transform: translateY(-3px); background: var(--card-alt); }
   .btn-primary:active, .btn-ghost:active { transform: translateY(0); box-shadow: var(--pop-sm); }
 
-  /* ---- 我的衣柜 demo panel: soft cream / blush "fashion app" skin -------- */
+  /* ---- 我的衣柜 demo panel: iPhone-style frame + cream/blush skin ------- */
   .gz-window {
-    background: #fbf6f2;
+    position: relative;
+    background: #111318;
     border: 0;
-    border-radius: 28px;
-    box-shadow: 0 26px 60px rgba(90, 58, 56, 0.18);
+    border-radius: 46px;
+    padding: 13px;
+    box-shadow: 0 30px 70px rgba(90, 58, 56, 0.26), 0 0 0 1px #2a2d33 inset;
+    overflow: visible;
   }
+  /* side buttons */
+  .gz-window::before,
+  .gz-window::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    background: #2a2d33;
+    border-radius: 2px;
+  }
+  .gz-window::before { left: -3px; top: 118px; height: 54px; }
+  .gz-window::after { right: -3px; top: 156px; height: 78px; }
+  /* Dynamic-Island pill */
+  .gz-island {
+    position: absolute;
+    z-index: 3;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 22px;
+    border-radius: 999px;
+    background: #111318;
+  }
+  .gz-body {
+    position: relative;
+    background: #fbf6f2;
+    border-radius: 34px;
+    overflow: hidden;
+  }
+  .gz-bar { padding: 32px 16px 10px; }
   .gz-dot { border: 0; }
+  /* Let the panel grids shrink below their content's min width so the phone
+     never forces a wider layout on small screens. */
+  .gz-main { grid-template-columns: minmax(0, 37%) minmax(0, 1fr); }
+  .gz-versions { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .gz-v { min-width: 0; }
+  .gz-v > span:last-child { overflow-wrap: anywhere; }
+  @media (max-width: 559px) {
+    .gz-main { grid-template-columns: 1fr; }
+    .gz-window { padding: 9px; border-radius: 40px; }
+    .gz-body { border-radius: 30px; }
+    .gz-versions { gap: 4px; padding: 14px 8px; }
+    .gz-v > span:last-child { font-size: 0.625rem; }
+  }
   .gz-dot-y { background: #f0d9cf; }
   .gz-dot-p { background: #db8a7c; }
   .gz-bar { background: #f4e8e1; border-bottom: 1px solid rgba(90, 58, 56, 0.1); }

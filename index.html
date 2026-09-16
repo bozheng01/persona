@@ -41,6 +41,18 @@
              crop on narrow viewports. -->
 <svg class="hero-city" preserveaspectratio="xMidYMax slice" viewbox="0 0 1600 200">
 <defs>
+<lineargradient id="hill-grad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0" stop-color="#8a2020"></stop>
+<stop offset="0.62" stop-color="#701719"></stop>
+<stop offset="1" stop-color="#701719" stop-opacity="0"></stop>
+</lineargradient>
+<symbol id="cloud" viewbox="0 0 120 46">
+<path d="M20 44 q-18 0 -19 -12 q-1 -12 12 -13 q-2 -15 13 -17 q10 -1 16 7 q9 -8 21 -3 q13 6 9 18 q12 1 10 13 q-1 9 -14 9 z" fill="#fdf3dd"></path>
+</symbol>
+<symbol id="petal" viewbox="0 0 20 20">
+<path d="M10 1 C16 4 18 11 13 16 C12 17.2 10.6 17.6 10 16.4 C9.4 17.6 8 17.2 7 16 C2 11 4 4 10 1 Z" fill="#ffb3c7"></path>
+</symbol>
+
 <!-- ================= BOY ================= -->
 <g id="boy">
   <rect x="-14" y="-52" width="12" height="46" rx="5" fill="#2f3138"/>
@@ -192,24 +204,34 @@
   <circle cx="6" cy="-125" r="1.6" fill="#2b2b33"/>
   <path d="M-4 -116 q4 4 8 0" fill="none" stroke="#2b2b33" stroke-width="2" stroke-linecap="round"/>
 </g>
+
 </defs>
-
-<g class="bg-mark" opacity="0.26" fill="#ffffff">
-  <circle cx="150" cy="130" r="72"/>
-  <circle cx="1470" cy="66" r="48"/>
-  <circle cx="900" cy="46" r="30"/>
-  <polygon points="238,200 300,84 362,200"/>
-  <polygon points="1278,200 1340,90 1402,200"/>
+<path d="M328 176 C 528 146 648 10 748 10 C 848 10 968 146 1168 176 Z" fill="#4b506e"></path>
+<path d="M694 42 C 714 24 730 10 748 10 C 766 10 782 24 802 42 C 786 36 772 48 758 40 C 752 50 744 50 738 40 C 724 48 710 36 694 42 Z" fill="#f7f5ef"></path>
+<use class="cloud" href="#cloud" style="--i: 1" width="150" height="58" x="70" y="50"></use>
+<use class="cloud" href="#cloud" style="--i: 3" width="108" height="42" x="350" y="88"></use>
+<use class="cloud" href="#cloud" style="--i: 2" width="132" height="51" x="628" y="46"></use>
+<use class="cloud" href="#cloud" style="--i: 4" width="118" height="46" x="968" y="82"></use>
+<use class="cloud" href="#cloud" style="--i: 5" width="152" height="59" x="1262" y="54"></use>
+<path class="hill" d="M0 200 L0 176 Q 180 170 360 162 Q 560 153 800 152 Q 1040 153 1240 162 Q 1420 170 1600 176 L1600 200 Z" fill="url(#hill-grad)"></path>
+<g class="torii" transform="translate(400 176)">
+<rect x="-34" y="-100" width="11" height="100" rx="2" fill="#c0392b"></rect>
+<rect x="23" y="-100" width="11" height="100" rx="2" fill="#c0392b"></rect>
+<path d="M-46 -104 Q0 -114 46 -104 L46 -96 Q0 -106 -46 -96 Z" fill="#c0392b"></path>
+<rect x="-40" y="-88" width="80" height="9" rx="2" fill="#c0392b"></rect>
+<rect x="-7" y="-88" width="14" height="16" rx="2" fill="#1a1a1a"></rect>
 </g>
-<g opacity="0.55" fill="#ffe3b8">
-  <circle class="dot" style="--i:1" cx="470" cy="52" r="13"/>
-  <circle class="dot" style="--i:3" cx="1120" cy="158" r="10"/>
-  <circle class="dot" style="--i:2" cx="700" cy="34" r="8"/>
-  <circle class="dot" style="--i:4" cx="1010" cy="58" r="7"/>
-  <circle class="dot" style="--i:5" cx="200" cy="66" r="9"/>
+<g class="pagoda" transform="translate(1200 174)">
+<rect x="-26" y="-16" width="52" height="16" fill="#7a5c40"></rect>
+<rect x="-20" y="-42" width="40" height="26" fill="#8a6a4a"></rect>
+<path d="M-34 -42 L0 -54 L34 -42 Z" fill="#3f4450"></path>
+<rect x="-16" y="-64" width="32" height="22" fill="#8a6a4a"></rect>
+<path d="M-30 -64 L0 -76 L30 -64 Z" fill="#3f4450"></path>
+<rect x="-12" y="-86" width="24" height="22" fill="#8a6a4a"></rect>
+<path d="M-26 -86 L0 -98 L26 -86 Z" fill="#3f4450"></path>
+<line x1="0" y1="-98" x2="0" y2="-112" stroke="#3f4450" stroke-width="3"></line>
+<circle cx="0" cy="-114" r="4" fill="#ffe72e"></circle>
 </g>
-<ellipse cx="800" cy="168" rx="480" ry="11" fill="#8a2020" opacity="0.26"/>
-
 <g class="cast">
   <g transform="translate(482 178) scale(0.98)"><use class="cast-member" href="#boy" style="--i:1"/></g>
   <g transform="translate(588 178) scale(0.94)"><use class="cast-member" href="#bot-small" style="--i:2"/></g>
@@ -219,6 +241,15 @@
   <g transform="translate(1012 118) scale(0.95)"><use class="cast-member fly" href="#bot-fly" style="--i:6"/></g>
   <g transform="translate(1120 178) scale(0.97)"><use class="cast-member" href="#elder" style="--i:7"/></g>
 </g>
+<g transform="translate(300 62)"><use class="petal" href="#petal" style="--i: 1" width="14" height="14"></use></g>
+<g transform="translate(470 40)"><use class="petal" href="#petal" style="--i: 3" width="12" height="12"></use></g>
+<g transform="translate(560 114)"><use class="petal" href="#petal" style="--i: 2" width="16" height="16"></use></g>
+<g transform="translate(660 52)"><use class="petal" href="#petal" style="--i: 5" width="13" height="13"></use></g>
+<g transform="translate(760 132)"><use class="petal" href="#petal" style="--i: 4" width="15" height="15"></use></g>
+<g transform="translate(880 88)"><use class="petal" href="#petal" style="--i: 6" width="12" height="12"></use></g>
+<g transform="translate(990 44)"><use class="petal" href="#petal" style="--i: 2" width="16" height="16"></use></g>
+<g transform="translate(1090 114)"><use class="petal" href="#petal" style="--i: 5" width="14" height="14"></use></g>
+<g transform="translate(1190 70)"><use class="petal" href="#petal" style="--i: 3" width="13" height="13"></use></g>
 </svg>
 <div class="hero-grid"></div>
 </div>

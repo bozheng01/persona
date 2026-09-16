@@ -984,8 +984,13 @@
     }
     .fly { animation: hero-hover 2.4s ease-in-out infinite alternate; }
     .wing { animation: wing-flap 0.5s ease-in-out infinite alternate; }
-    .bg-mark { animation: bg-drift 12s ease-in-out infinite alternate; }
-    .dot { animation: dot-twinkle 3s ease-in-out infinite; animation-delay: calc(var(--i) * -0.5s); }
+    .cloud { animation: cloud-drift var(--cloud-dur, 9s) ease-in-out infinite alternate; animation-delay: calc(var(--i) * -1.7s); }
+    .petal {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: petal-fall var(--petal-dur, 9s) linear infinite;
+      animation-delay: calc(var(--i) * -1.9s);
+    }
   }
   @keyframes cast-bob {
     from { transform: translateY(0); }
@@ -1007,9 +1012,15 @@
     from { transform: translateX(-12px); }
     to { transform: translateX(12px); }
   }
-  @keyframes dot-twinkle {
-    0%, 100% { opacity: 0.35; }
-    50% { opacity: 0.85; }
+  @keyframes cloud-drift {
+    from { transform: translateX(-16px); }
+    to { transform: translateX(16px); }
+  }
+  @keyframes petal-fall {
+    0% { transform: translateY(-14px) rotate(0deg); opacity: 0; }
+    12% { opacity: 1; }
+    86% { opacity: 1; }
+    100% { transform: translateY(48px) rotate(58deg); opacity: 0; }
   }
   .game-grid {
     position: absolute;

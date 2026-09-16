@@ -1603,6 +1603,13 @@
   .gz-screen .gz-media.is-on { opacity: 1; }
   .gz-screen video.gz-media { object-fit: cover; }
   .gz-screen img.gz-media { object-fit: contain; }
+  .gz-logo-name {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+  }
 
   /* ---- Cards / bento ---------------------------------------------------- */
   .cell { border: 0; border-radius: var(--radius-lg); box-shadow: var(--pop); padding: 32px; }

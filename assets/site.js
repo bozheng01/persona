@@ -108,7 +108,11 @@
           'Chat with your friends, and the game gets made along the way.': '和朋友聊着聊着，游戏就一起做出来了。',
           'Describe a game together. Gear plans it, builds it, and turns each conversation into a playable version in minutes.': '一起说出想做的游戏。Gear 会完成规划与构建，并在几分钟内把每轮对话变成可玩的版本。',
           'Keep talking while Gear works. It remembers the room, gathers every new idea, and builds the next playable version without losing the conversation.': 'Gear 工作时你们可以继续聊。它会记住房间里的内容，收集每个新想法，并在不丢失对话的情况下构建下一个可玩版本。',
-          'Create together': '一起创作', 'Build in minutes': '几分钟完成', 'Play instantly': '立即开玩',
+          'Your wardrobe, styled by AI.': '让 AI 为你打理衣橱。',
+          'Upload a photo and try on outfits in seconds. It reads your body and your style, then generates new looks you can actually wear.': '上传一张照片，数秒即可试穿。AI 读懂你的身形与风格，生成真正能穿的搭配。',
+          'Swap the top, the bottoms, or the whole outfit — and see it on you, not on a model.': '上衣、下装或整套造型都能替换，看到的是你自己，而不是模特。',
+          'AI try-on': 'AI试衣', 'Instant outfits': '即时搭配', 'Your own photo': '用自己的照片',
+          'Try it now': '立即体验',
           'A few friends, one room, and a game that takes shape while you talk about it. Say what you want in plain language — the AI plans it, writes the code, builds it and runs it, a few minutes start to finish. Whatever the room makes is playable right there, with nothing to install.': '几个朋友，一个房间，游戏在聊天里慢慢成形。想要什么就用大白话说出来——AI 负责规划、写代码、构建、运行，前后也就几分钟。房间里做出来的东西当场就能玩，不用安装。',
           'One game, everyone talking': '一个游戏，大家一起聊',
           'Everyone sits in the same room, talks to the same AI, and edits the same game — then plays it the moment it builds.': '一群人待在同一个房间，跟同一个 AI 聊天，改的是同一款游戏，改完当场就能玩。',
@@ -234,7 +238,11 @@
           'Chat with your friends, and the game gets made along the way.': '友だちと話しているうちに、ゲームができていく。',
           'Describe a game together. Gear plans it, builds it, and turns each conversation into a playable version in minutes.': '一緒に作りたいゲームを話すだけ。Gear が設計・ビルドし、会話を数分で遊べるバージョンにします。',
           'Keep talking while Gear works. It remembers the room, gathers every new idea, and builds the next playable version without losing the conversation.': 'Gear が作業している間も会話を続けられます。部屋の内容と新しいアイデアを覚え、会話を失わず次の遊べるバージョンをつくります。',
-          'Create together': '一緒につくる', 'Build in minutes': '数分で完成', 'Play instantly': 'すぐ遊べる',
+          'Your wardrobe, styled by AI.': 'AIが、あなたのワードローブをコーディネート。',
+          'Upload a photo and try on outfits in seconds. It reads your body and your style, then generates new looks you can actually wear.': '写真をアップロードするだけで、数秒で試着。体型と雰囲気を読み取り、実際に着られるコーデを生成します。',
+          'Swap the top, the bottoms, or the whole outfit — and see it on you, not on a model.': 'トップス、ボトムス、全身まるごと。モデルではなく、あなた自身で確認できます。',
+          'AI try-on': 'AI試着', 'Instant outfits': '即時コーデ', 'Your own photo': '自分の写真で',
+          'Try it now': '試してみる',
           'A few friends, one room, and a game that takes shape while you talk about it. Say what you want in plain language — the AI plans it, writes the code, builds it and runs it, a few minutes start to finish. Whatever the room makes is playable right there, with nothing to install.': '友だち数人と一つの部屋。話しているうちにゲームが形になります。ふつうの言葉で言えば、AI が計画し、コードを書き、ビルドして動かす。ぜんぶで数分。部屋でできたものはその場で遊べて、インストールは不要です。',
           'One game, everyone talking': 'ひとつのゲームを、みんなで話す',
           'Everyone sits in the same room, talks to the same AI, and edits the same game — then plays it the moment it builds.': 'みんなが同じ部屋で同じ AI と話し、同じゲームを直す。できあがったらその場で遊べます。',
@@ -491,7 +499,7 @@
     (function () {
       var names = [
         'Persona-Evoke', 'Marionette', 'Persona World', 'Sekai2', 'WorldRover', 'ShadowDancer', 'MASS', 'Wild World', 'PackForcing', 'World Mark', 'Surprise Forcing', 'Interactive Game World',
-        'Gear Zero', 'Auto BG', 'JAMER', 'PersonaRenderer-Flash', 'Persona Render', 'AgenticSTS', 'MeepleLM',
+        '我的衣柜', 'Auto BG', 'JAMER', 'PersonaRenderer-Flash', 'Persona Render', 'AgenticSTS', 'MeepleLM',
         'MIO', 'FloodDiffusion', 'UniLS', 'Living the Novel',
         'YUME & YUME 1.5', 'Sekai'
       ];

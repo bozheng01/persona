@@ -1,0 +1,1749 @@
+@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/noto-sans-sc.b59662c05aeb.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/noto-sans-sc.bc9779e100f3.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/noto-sans-sc.915bc0c0e1a9.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/assets/noto-sans-sc.d5a943c706bc.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/space-grotesk.0faaf10f7fb1.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/space-grotesk.06992b929a74.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/space-grotesk.261a31d3f420.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/assets/space-grotesk.646ea0d0b491.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Gaegu';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/gaegu.ef0cf33faacb.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Gaegu';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/assets/gaegu.83964f82f40b.woff2) format('woff2');
+}
+
+
+  :root {
+    /* Paper-and-ink system. Warm paper ground, one near-black ink used for every
+       outline and every piece of text, flat purple/pink accents, and hard offset
+       shadows instead of blur. Nothing here glows. */
+    --paper: #f7f5ef;
+    --card: #ffffff;
+    --card-alt: #fbfaf6;
+    --band: #eeece6;
+    --ink: #1a1a1a;
+    --ink-70: rgba(26, 26, 26, 0.7);
+    --ink-45: rgba(26, 26, 26, 0.45);
+    --ink-15: rgba(26, 26, 26, 0.15);
+    --shadow: #1a1a1a;
+    --on-bright: #15161a;
+    --purple: #ff86ad;
+    --lavender: #ffe72e;
+    --pink: #ff86ad;
+    --blue: #202020;
+    --blue-tint: #fff4b8;
+    --hot-purple: #6948dc;
+    --hot-purple-sheen: #7658dc;
+    --hot-purple-soft: #d8ceff;
+    --gear-yellow: #ffe72e;
+    --gold: #c9950f;
+
+    --radius: 16px;
+    --radius-lg: 24px;
+    --pill: 999px;
+
+    /* The signature: offset, zero-blur shadows at three weights. Matching the
+       Gear Zero site's discipline exactly: hover lifts every weight by +2px,
+       :active collapses it to 0, and every shadow is ink — never a color. */
+    --pop-sm: 3px 3px 0 0 var(--shadow);
+    --pop: 4px 4px 0 0 var(--shadow);
+    --pop-lg: 6px 6px 0 0 var(--shadow);
+    --pop-sm-lift: 5px 5px 0 0 var(--shadow);
+    --pop-lift: 6px 6px 0 0 var(--shadow);
+    --pop-lg-lift: 8px 8px 0 0 var(--shadow);
+
+    /* Type follows zero.personalab.ai: one grotesk does the whole page, headings
+       just get weight and tighter tracking. Handwriting is no longer a text face
+       — --script is reserved for the wordmark, the way Gear Zero keeps "zero"
+       in Gaegu and sets everything else in Space Grotesk. (--text was --hand back
+       when body copy was Patrick Hand.) */
+    --text: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
+    --display: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
+    --ui: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
+    --script: 'Gaegu', 'Comic Sans MS', cursive;
+    --display-tracking: -0.025em;
+  }
+
+  /* Per-language type. Latin stays FIRST so per-character fallback keeps "AI" and
+     "Gear Zero" in Space Grotesk; CJK then picks up a matching gothic. Japanese
+     puts its own faces ahead of Noto Sans SC — shared kanji would otherwise
+     render with mainland glyph forms. */
+  html[lang="zh"] {
+    --text: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --display: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --ui: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+  html[lang="ja"] {
+    --text: 'Space Grotesk', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+    --display: 'Space Grotesk', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+    --ui: 'Space Grotesk', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* text-size-adjust pinned: Android in-app browsers (WeChat/QQ X5 WebView)
+     otherwise inflate text ad hoc, which wrapped the nav CTA onto two lines
+     and threw off every measured layout on real phones. */
+  html { scroll-behavior: smooth; background: var(--paper); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: 1.0625rem;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--purple); color: var(--on-bright); }
+
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+
+  /* Chunky ink scrollbar, in keeping with the outlined furniture */
+  * { scrollbar-color: var(--ink) var(--band); scrollbar-width: thin; }
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: var(--band); }
+  ::-webkit-scrollbar-thumb { background: var(--ink); border-radius: 999px; border: 3px solid var(--band); }
+
+  a { text-decoration: none; color: inherit; }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+  @media (min-width: 1024px) { .container { padding: 0 40px; } }
+
+  /* ---------- Buttons ----------
+     Every button is an outlined pill that sits above its own hard shadow.
+     Hover lifts it off the page; :active presses it flat. */
+  .btn-primary,
+  .btn-ghost {
+    display: inline-block;
+    border: 2px solid var(--ink);
+    border-radius: var(--pill);
+    box-shadow: var(--pop);
+    padding: 12px 28px;
+    font-family: var(--text);
+    font-size: 1.125rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: var(--ink);
+    transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.2s;
+  }
+  .btn-primary { background: var(--pink); color: var(--on-bright); }
+  .btn-ghost { background: var(--card); }
+  .btn-primary:hover, .btn-ghost:hover { transform: translate(-2px, -2px); box-shadow: var(--pop-lift); }
+  .btn-ghost:hover { background: var(--blue-tint); }
+  .btn-primary:active, .btn-ghost:active { transform: translate(2px, 2px); box-shadow: 0 0 0 0 var(--ink); }
+
+  /* ---------- Nav ---------- */
+  header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    background: rgba(255, 231, 46, 0.97);
+    border-bottom: 2px solid var(--ink);
+  }
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 68px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Guaranteed air between the brand and the controls on narrow phones */
+    gap: 12px;
+  }
+  @media (min-width: 1024px) { .nav-inner { padding: 0 40px; } }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  /* Persona.ai mark: the dancing figure, no sticker frame so it can render
+     large and legible in the header. */
+  .brand-mark {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+    object-fit: cover;
+    transition: transform 0.14s ease;
+  }
+  .brand:hover .brand-mark { transform: rotate(-6deg); }
+  .brand-name { font-family: var(--script); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.01em; }
+  /* Inline marker highlight, the way the reference site emphasises words */
+  .brand-name b { background: var(--pink); border-radius: 5px; padding: 0 5px; font-weight: 700; }
+  /* Held back to 1024px: below that the language switcher plus the socials and
+     CTA leave no room for the section links without them colliding. */
+  .nav-links { display: none; align-items: center; gap: 26px; }
+  @media (min-width: 1024px) { .nav-links { display: flex; } }
+  .nav-links a { position: relative; font-size: 1.125rem; color: var(--ink); }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .socials { display: none; align-items: center; gap: 14px; }
+  @media (min-width: 640px) { .socials { display: flex; } }
+  .socials a { color: var(--ink); display: inline-flex; align-items: center; transition: transform 0.14s ease; }
+  .socials a:hover { transform: translateY(-2px); }
+
+  /* GitHub stars pill with odometer count */
+  .socials a.gh-stars {
+    gap: 7px;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: var(--pill);
+    padding: 5px 14px;
+    box-shadow: var(--pop-sm);
+    transition: transform 0.14s ease, box-shadow 0.14s ease;
+  }
+  .socials a.gh-stars:hover { transform: translate(-2px, -2px); box-shadow: var(--pop-sm-lift); }
+  .gh-star-glyph { color: var(--gold); }
+  .gh-count {
+    display: inline-flex;
+    font-family: var(--ui);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .gh-count:empty { display: none; }
+  .odo { display: inline-block; height: 1.25em; overflow: hidden; }
+  .odo-strip { display: block; }
+  .odo-strip span { display: block; height: 1.25em; line-height: 1.25em; text-align: center; }
+  @media (prefers-reduced-motion: no-preference) {
+    .odo-strip { transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: var(--odo-delay, 0s); }
+  }
+  /* Pink, not ink: emphasis comes from the accent colors, and it now matches
+     the hero's own "Get in touch" button one screen below. */
+  .nav-cta { padding: 7px 20px; font-size: 1rem; box-shadow: var(--pop-sm); }
+  .nav-cta:hover { box-shadow: var(--pop-sm-lift); }
+
+  /* Language switcher: one outlined pill, the active language filled */
+  .lang {
+    display: inline-flex;
+    flex: none;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: var(--pill);
+    box-shadow: var(--pop-sm);
+    overflow: hidden;
+  }
+  .lang-btn {
+    font-family: var(--ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+    border-left: 2px solid var(--ink);
+    padding: 7px 9px;
+    cursor: pointer;
+    transition: background 0.18s;
+  }
+  .lang-btn:first-child { border-left: 0; padding-left: 11px; }
+  .lang-btn:last-child { padding-right: 11px; }
+  .lang-btn:hover { background: var(--blue-tint); }
+  .lang-btn.is-on { background: var(--lavender); color: var(--on-bright); }
+  /* Phone header carries brand + switcher + CTA, so all three give up some width */
+  @media (max-width: 479px) {
+    .nav-inner { padding: 0 16px; gap: 10px; }
+    .brand { gap: 8px; }
+    .brand-name { font-size: 1.0625rem; }
+    .nav-right { gap: 8px; }
+    .nav-cta { padding: 6px 12px; font-size: 0.875rem; }
+    .lang-btn { padding: 7px 6px; font-size: 0.65rem; }
+    .lang-btn:first-child { padding-left: 8px; }
+    .lang-btn:last-child { padding-right: 8px; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    min-height: 88dvh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    border-bottom: 2px solid var(--ink);
+    /* Horizon geometry, shared by .hero-city and .hero-grid. In vh so the skyline
+       stays put relative to the fold even when the hero grows past 100dvh. */
+    --sky-top: clamp(96px, 13vh, 190px);
+    --sky-h: clamp(170px, 24vh, 290px);
+  }
+  .hero-bg { position: absolute; inset: 0; }
+  /* Flat-cartoon sky: a warm amber-to-orange wash that deepens toward the
+     horizon, matching the red hill drawn in the hero SVG. The scene SVG itself
+     carries the clouds, hill and cast; this layer is just the sky. */
+  .hero-scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: linear-gradient(180deg, #ffc74d 0%, #f89a1e 44%, #f07d12 72%, #e86a09 100%);
+  }
+  /* The scene band is anchored to the TOP of the hero, not the bottom. The hero
+     now holds a tall panel as well as the copy, so its height varies a lot;
+     pinning the horizon near the top keeps the sky/hill/floor order intact at
+     any height, and everything below the horizon becomes backdrop for the
+     content. --sky-* are shared with .hero-grid so the horizon can never drift. */
+  .hero-city {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--sky-top);
+    height: var(--sky-h);
+    width: 100%;
+  }
+  /* Floor starts exactly where the scene band ends, and fills everything below */
+  .hero-grid {
+    position: absolute;
+    left: -50%;
+    right: -50%;
+    top: calc(var(--sky-top) + var(--sky-h));
+    bottom: -40%;
+    background:
+      linear-gradient(var(--ink-15) 2px, transparent 2px),
+      linear-gradient(90deg, var(--ink-15) 2px, transparent 2px);
+    background-size: 52px 52px;
+    transform: perspective(520px) rotateX(63deg);
+    transform-origin: 50% 0;
+    /* The perspective crushes the far half of this plane into a thin band at the
+       horizon, so the fade has to run over a long stretch of local space or the
+       converging lines pile up and read as a fence. */
+    -webkit-mask-image: linear-gradient(transparent, #000 55%);
+    mask-image: linear-gradient(transparent, #000 55%);
+  }
+  /* Washes the lower half toward paper so the headline always has a clean field,
+     however tall the viewport or however many lines the headline wraps to. The
+     fade stops at 60% (not 74%) so the red hill drawn in the hero SVG keeps its
+     colour instead of being washed to pink. */
+  .hero-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+      var(--paper) 0%,
+      var(--paper) 16%,
+      rgba(240, 238, 233, 0.9) 36%,
+      rgba(240, 238, 233, 0) 60%);
+  }
+  /* On narrow screens the headline wraps to two lines and grows into the
+     skyline, so the scene lifts clear of it. */
+  /* Narrow screens get a shallower skyline so it doesn't eat the fold */
+  @media (max-width: 767px) {
+    .hero { --sky-top: clamp(76px, 8vh, 110px); --sky-h: clamp(150px, 20vh, 220px); }
+  }
+  .hero-content {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 96px 24px;
+  }
+  @media (min-width: 1024px) { .hero-content { padding: 96px 40px; } }
+  /* Stacked layout: the panel makes the hero tall enough that the content fills
+     it from the top, so the copy has to start below the skyline explicitly. */
+  @media (max-width: 1079px) {
+    .hero-content {
+      padding-top: calc(var(--sky-top) + var(--sky-h) + 20px);
+      padding-bottom: 64px;
+    }
+  }
+  /* Wide screens: copy on the left, the Gear Zero panel on the right, both
+     sitting on the skyline backdrop. Extra top padding clears the fixed header
+     now that the hero holds a tall block rather than just three lines of copy. */
+  @media (min-width: 1080px) {
+    .hero { min-height: clamp(700px, 82vh, 820px); min-height: clamp(700px, 82dvh, 820px); }
+    .hero-content {
+      display: grid;
+      /* Left column runs wider than the right so the headline holds one line and
+         the panel sits further toward the edge. */
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 56px;
+      padding: 96px 24px 64px 40px;
+    }
+  }
+  @media (max-width: 767px) {
+    .hero-content { padding-bottom: 48px; }
+  }
+  /* The headline never breaks. "Human × AI × Game" measures 8.84x its font-size
+     in Space Grotesk 700 at this tracking, so sizing it from the width actually
+     available (viewport minus the content padding, divided by 9) keeps it on one
+     line at every width — fitHeadline() then trims any residual overhang. */
+  .hero h1 {
+    max-width: 54rem;
+    font-family: var(--display);
+    font-size: min(calc((100vw - 60px) / 9), 6rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: var(--display-tracking);
+    white-space: nowrap;
+    color: var(--ink);
+  }
+  /* Pink on cream is only 1.8:1, so the separators get the same ink outline
+     every other shape on the page has. Eight offsets, no blur — text-shadow
+     rather than -webkit-text-stroke, which would thin the glyph in Chrome. */
+  .hero h1 .accent {
+    color: var(--pink);
+    text-shadow:
+       2px 0 0 var(--ink), -2px 0 0 var(--ink),
+       0 2px 0 var(--ink), 0 -2px 0 var(--ink),
+       1.5px 1.5px 0 var(--ink), -1.5px -1.5px 0 var(--ink),
+       1.5px -1.5px 0 var(--ink), -1.5px 1.5px 0 var(--ink);
+  }
+  .hero .sub {
+    margin-top: 20px;
+    max-width: 34rem;
+    font-size: 1.375rem;
+    line-height: 1.55;
+    color: var(--ink-70);
+  }
+  .hero .cta-row { margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+
+  /* Two-column hero type. Must come AFTER the base .hero h1 rule above — equal
+     specificity, so source order decides. "Human × AI × Game" measures 8.66x its
+     font-size in Gaegu, and the left column is (content - gap) x 1.2/2.2, so 5vw
+     capped at 4.5rem keeps it on one line from 1080px up with room to spare. */
+  @media (min-width: 1080px) {
+    .hero h1 {
+      max-width: none;
+      font-size: clamp(2.75rem, 5vw, 4.5rem);
+      white-space: nowrap;
+    }
+    .hero .sub { margin-top: 18px; font-size: 1.1875rem; }
+    .hero .cta-row { margin-top: 30px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-enter { opacity: 0; transform: translateY(32px); animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .hero-enter.d1 { animation-delay: 0.1s; }
+    .hero-enter.d2 { animation-delay: 0.25s; }
+    .hero-enter.d3 { animation-delay: 0.4s; }
+    @keyframes hero-in { to { opacity: 1; transform: translateY(0); } }
+
+    .marquee-track { animation: marquee 42s linear infinite; }
+
+    /* Initial hidden state only applies once JS has tagged <html class="js">,
+       so content stays visible without JavaScript. */
+    html.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    html.js .reveal.in { opacity: 1; transform: translateY(0); }
+    /* Grid children cascade in with a slight stagger */
+    html.js .bento > .reveal:nth-child(2), html.js .sol-grid > .reveal:nth-child(2) { transition-delay: 0.08s; }
+    html.js .bento > .reveal:nth-child(3), html.js .sol-grid > .reveal:nth-child(3) { transition-delay: 0.16s; }
+    html.js .bento > .reveal:nth-child(4), html.js .sol-grid > .reveal:nth-child(4) { transition-delay: 0.24s; }
+    html.js .bento > .reveal:nth-child(5) { transition-delay: 0.32s; }
+
+    /* Contact sticker bobs gently rather than pulsing with light */
+    .contact-glow { animation: sticker-bob 7s ease-in-out infinite alternate; }
+
+    /* World Model video wall columns drift in alternating directions */
+    .cvw-track { animation: cvw-up var(--dur, 28s) linear infinite; will-change: transform; }
+    .cvw-track.reverse { animation-name: cvw-down; }
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes sticker-bob {
+    from { transform: translate(-50%, -50%) rotate(-3deg); }
+    to { transform: translate(-50%, -52%) rotate(3deg); }
+  }
+  @keyframes cvw-up {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+  @keyframes cvw-down {
+    from { transform: translateY(-50%); }
+    to { transform: translateY(0); }
+  }
+
+  /* ---------- Project ticker ---------- */
+  .ticker {
+    background: var(--lavender);
+    border-bottom: 2px solid var(--ink);
+    padding: 20px 0;
+    overflow: hidden;
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    gap: 56px;
+    padding: 0 32px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .ticker:hover .marquee-track { animation-play-state: paused; }
+  .marquee-track span {
+    position: relative;
+    white-space: nowrap;
+    font-family: var(--ui);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+  }
+  /* Ink diamond sitting in the middle of each 56px gap */
+  .marquee-track span::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -31px;
+    width: 6px;
+    height: 6px;
+    margin-top: -3px;
+    background: var(--ink);
+    transform: rotate(45deg);
+  }
+
+  /* ---------- Sections ---------- */
+  .section { padding: 112px 0; }
+  section[id] { scroll-margin-top: 92px; }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--ui);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-70);
+  }
+  /* Short ink rule leading each section label */
+  .eyebrow::before { content: ''; width: 32px; height: 2px; background: var(--ink); }
+  .section h2 {
+    margin-top: 14px;
+    max-width: 42rem;
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 4.4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: var(--display-tracking);
+    line-height: 1.06;
+  }
+
+  /* ---------- Gear Zero build panel ----------
+     The live "someone is building one right now" panel from zero.personalab.ai,
+     rebuilt on this page's tokens. Stacked vertically rather than the two-column
+     split the product site uses: this slot is a narrow right-hand column, so the
+     brief and its checklist sit above the running game instead of beside it.
+     One 7s pass per room — the brief lands, the four steps tick over, the scrim
+     lifts off the video, and the version stops light up one at a time. */
+  /* Stacked below the copy on narrow screens; the right-hand column above 1080px */
+  .gz-panel { position: relative; margin-top: 48px; }
+  @media (min-width: 1080px) { .gz-panel { margin-top: 0; } }
+  /* Sticker circles peeking out from behind the window */
+  .gz-dot { position: absolute; z-index: 0; border: 2px solid var(--ink); border-radius: var(--pill); }
+  /* Offsets stay inside the container's 24px padding so the dots can never be
+     clipped by the viewport edge, at any width where they're shown. */
+  .gz-dot-y { width: 92px; height: 92px; background: var(--gear-yellow); top: -28px; left: -22px; }
+  .gz-dot-p { width: 108px; height: 108px; background: var(--pink); right: -18px; bottom: -32px; }
+  @media (max-width: 767px) { .gz-dot { display: none; } }
+  .gz-window {
+    position: relative;
+    z-index: 1;
+    background: #111318;
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    box-shadow: var(--pop-lg);
+    overflow: hidden;
+  }
+  /* Title bar */
+  .gz-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #2a2a2a;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+  }
+  .gz-bar-title {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--ui);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .gz-live {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 1px 8px;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--pill);
+    background: var(--ink);
+    font-family: var(--ui);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .gz-live-dot { width: 6px; height: 6px; border-radius: var(--pill); background: #3ddc84; }
+
+  /* Reference-site composition: brief and checklist on the left, running game
+     on the right. The 37/63 split is the current zero.personalab.ai ratio. */
+  .gz-main { display: grid; grid-template-columns: 37% 1fr; }
+  .gz-build {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px;
+    border-right: 2px solid rgba(255, 255, 255, 0.15);
+  }
+  .gz-said {
+    border-radius: 10px;
+    background: var(--gear-yellow);
+    padding: 8px 10px;
+    font-family: var(--ui);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--on-bright);
+  }
+  .gz-steps { margin-top: 12px; display: flex; flex-direction: column; gap: 4px; list-style: none; }
+  .gz-steps li {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-family: var(--ui);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: #ffffff;
+    opacity: 1;
+  }
+  .gz-steps li i { font-style: normal; font-size: 0.75rem; color: var(--gear-yellow); }
+  .gz-track { margin-top: 12px; height: 6px; border-radius: var(--pill); background: rgba(255, 255, 255, 0.15); overflow: hidden; }
+  .gz-fill { display: block; height: 100%; width: 100%; background: var(--gear-yellow); }
+
+  /* The game running in the browser */
+  .gz-screen { position: relative; min-width: 0; background: #0d0d0d; aspect-ratio: 3 / 2; overflow: hidden; }
+  .gz-screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .gz-scrim {
+    position: absolute;
+    inset: -1px;
+    display: grid;
+    place-items: center;
+    background: #101010;
+    font-family: var(--ui);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+  }
+
+  /* Version stops */
+  .gz-versions { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 16px 14px; border-top: 2px solid rgba(255, 255, 255, 0.15); }
+  .gz-vline { position: absolute; left: 12.5%; right: 12.5%; top: 26px; height: 2px; background: rgba(255, 255, 255, 0.15); }
+  .gz-v { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+  .gz-vdot {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--gear-yellow);
+    border-radius: var(--pill);
+    background: var(--gear-yellow);
+    color: var(--on-bright);
+    font-family: var(--ui);
+    font-size: 0.6875rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .gz-v > span:last-child { font-family: var(--ui); font-size: 0.6875rem; line-height: 1.35; color: rgba(255, 255, 255, 0.6); }
+
+  /* Below 560px the 37% brief column is too narrow for readable copy. Return
+     to the vertical layout and use two compact checklist columns. */
+  @media (max-width: 559px) {
+    .gz-main { grid-template-columns: 1fr; }
+    .gz-build { border-right: 0; border-bottom: 2px solid rgba(255, 255, 255, 0.15); }
+    .gz-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; }
+  }
+
+  /* Footer CTA: the Gear Zero lockup, lifted from the product site's own header
+     (gear mark + "gear" wordmark path + "zero" set in Gaegu), and the way out to
+     it. The whole strip is the link, so the logo and the label share one target. */
+  .gz-start {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 13px 14px;
+    border-top: 2px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    transition: background 0.2s ease;
+  }
+  .gz-start:hover { background: rgba(255, 255, 255, 0.06); }
+  .gz-logo { display: inline-flex; align-items: center; gap: 0.4em; font-size: 1.125rem; line-height: 1; }
+  .gz-gear { flex: none; width: 1.25em; height: 1.25em; }
+  .gz-wordmark { flex: none; height: 0.85em; width: auto; transform: translateY(0.06em); }
+  /* "zero" is the one word still set in the handwritten face, exactly as the
+     product site sets it — see --script in the type block. */
+  .gz-logo-zero { font-family: var(--script); font-size: 1.09em; font-weight: 700; text-transform: uppercase; line-height: 1; }
+  .gz-start-cta {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border: 2px solid var(--ink);
+    border-radius: var(--pill);
+    background: var(--gear-yellow);
+    box-shadow: var(--pop-sm);
+    color: var(--on-bright);
+    font-family: var(--ui);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    transition: transform 0.14s ease, box-shadow 0.14s ease;
+  }
+  .gz-start:hover .gz-start-cta { transform: translate(-2px, -2px); box-shadow: var(--pop-sm-lift); }
+  .gz-start:active .gz-start-cta { transform: translate(2px, 2px); box-shadow: 0 0 0 0 var(--ink); }
+  /* The pop shadow is ink on an ink panel, so the pill gets a light edge to sit
+     against instead of dissolving into the background. */
+  .gz-start-cta { outline: 1px solid rgba(255, 255, 255, 0.25); outline-offset: -3px; }
+  /* On a phone the lockup and the longest label ("Start building") together come
+     to within a pixel of the row, so both drop a step below 430px. Below 360px
+     even that overflows in English, so the two stack and the button goes full
+     width — which is the better tap target on a screen that narrow anyway. */
+  @media (max-width: 430px) {
+    .gz-start { gap: 10px; padding: 11px 12px; }
+    .gz-logo { font-size: 1rem; }
+    .gz-start-cta { padding: 5px 12px; font-size: 0.875rem; }
+  }
+  @media (max-width: 360px) {
+    .gz-start { flex-direction: column; align-items: stretch; gap: 12px; }
+    .gz-start-cta { justify-content: center; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .gz-cog { transform-origin: 224px 239px; animation: gz-cog-spin 10s linear infinite; }
+    .gz-node { animation: gz-node-blink 2.8s ease-in-out infinite; animation-delay: calc((var(--i) - 1) * 0.7s); }
+  }
+  @keyframes gz-cog-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes gz-node-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+  /* One 7s build pass. Everything keys off the same clock, so the checklist,
+     the bar, the scrim and the stops stay in step. .is-building is re-applied
+     by script on every room change, which restarts all four at once. */
+  @media (prefers-reduced-motion: no-preference) {
+    .gz-window.is-building .gz-said { animation: gz-said 7s ease both; }
+    .gz-window.is-building .gz-steps li { animation: gz-step 7s linear both; animation-delay: calc((var(--i) - 1) * 0.7s); }
+    .gz-window.is-building .gz-fill { animation: gz-fill 7s ease-out both; }
+    .gz-window.is-building .gz-scrim { animation: gz-scrim 7s ease both; }
+    .gz-window.is-building .gz-vdot { animation: gz-stop 7s linear both; animation-delay: calc((var(--i) - 1) * 0.84s); }
+  }
+  @keyframes gz-said {
+    0% { opacity: 0; transform: translateY(4px); }
+    6%, 94% { opacity: 1; transform: none; }
+    100% { opacity: 0; }
+  }
+  @keyframes gz-step {
+    0%, 7% { opacity: 0.25; }
+    11%, 96% { opacity: 1; }
+    100% { opacity: 0.25; }
+  }
+  @keyframes gz-fill {
+    0% { width: 5%; }
+    46%, 100% { width: 100%; }
+  }
+  @keyframes gz-scrim {
+    0%, 42% { opacity: 1; }
+    52%, 100% { opacity: 0; }
+  }
+  @keyframes gz-stop {
+    0%, 50% { border-color: rgba(255, 255, 255, 0.3); background: transparent; color: #ffffff; }
+    56%, 100% { border-color: var(--gear-yellow); background: var(--gear-yellow); color: var(--on-bright); }
+  }
+
+  /* ---------- Directions bento ---------- */
+  .bento { margin-top: 48px; display: grid; grid-template-columns: 1fr; gap: 20px; }
+  /* Tablets get two columns, not six: at 768–1023px a span-2 cell in a
+     six-column grid is only ~223px wide, too narrow for two chips to share a
+     row no matter how small the chip gets. The six-column composition only earns
+     its keep once a span-2 cell clears ~370px, which needs ~1240px of viewport;
+     below that two columns keep these cells at a workable width. */
+  @media (min-width: 768px) { .bento { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1240px) { .bento { grid-template-columns: repeat(6, 1fr); } }
+  /* Every card is an outlined sheet of paper standing above its own shadow */
+  .cell {
+    position: relative;
+    overflow: hidden;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius);
+    box-shadow: var(--pop);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Flat accent surfaces, one per card — no gradients */
+  .cell.tint-corner { background: var(--blue-tint); }
+  .cell.tint-grid {
+    background:
+      radial-gradient(var(--ink-15) 1.5px, transparent 1.5px) 0 0 / 18px 18px,
+      var(--card);
+  }
+
+  /* World Model card: mini scrolling video wall (PersonaWorld demo clips) */
+  .video-cell > h3, .video-cell > p, .video-cell > .chips { position: relative; z-index: 1; }
+  .cell-video-wall {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 8px;
+    opacity: 0.9;
+  }
+  .cvw-col { position: relative; overflow: hidden; }
+  .cvw-track { display: flex; flex-direction: column; gap: 8px; }
+  .cell-video-wall video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    background: var(--band);
+  }
+  /* Paper wash over the footage so ink type stays readable on top of it.
+     Heavier at the top, where the heading and body copy sit — at the old 0.48
+     the ink-70 body text dropped well under 4.5:1 against busy footage. */
+  .cell-video-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.82) 55%, rgba(255, 255, 255, 0.88) 100%);
+  }
+
+  /* Digital Human card: Lina character art under a paper wash */
+  .cell.dh-art {
+    background:
+      linear-gradient(to top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.82) 60%, rgba(255, 255, 255, 0.88) 100%),
+      url('/assets/digital-human.svg') 68% 30% / cover no-repeat,
+      var(--card);
+    /* Cover, biased toward the right of the frame where Lina sits. Without an
+       explicit size the 1280px JPEG rendered at natural scale, so any card
+       narrower than that — every phone — showed only the empty top-left corner
+       of the artwork and the character was never visible. */
+    background-size: cover;
+    background-position: 70% 30%;
+  }
+
+  /* World Compilation and Rendering card: 2x2 G-Buffer channel mosaic (renderer dataset clips) */
+  .cell-video-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+    padding: 8px;
+    opacity: 0.9;
+  }
+  .cell-video-grid video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    background: var(--band);
+  }
+  .cell h3 { font-family: var(--display); font-size: 1.625rem; font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+  .cell p { margin-top: 8px; color: var(--ink-70); line-height: 1.5; }
+  .cell.span-4 { grid-column: span 1; }
+  .cell.span-2 { grid-column: span 1; }
+  @media (min-width: 768px) {
+    .cell.span-4 { grid-column: span 2; }
+    .cell.span-2 { grid-column: span 1; }
+  }
+  @media (min-width: 1240px) {
+    .cell.span-4 { grid-column: span 4; }
+    .cell.span-2 { grid-column: span 2; }
+  }
+  .cell.image-cell { position: relative; overflow: hidden; justify-content: flex-end; min-height: 360px; padding: 0; background: var(--card); }
+  /* Phones: the copy block runs ~240px tall once it wraps, and at 360px it
+     climbed into the skyline drawing — ink type on ink line-art. Extra height
+     keeps the scene clear above the washed field the text sits on. */
+  @media (max-width: 767px) { .cell.image-cell { min-height: 560px; } }
+  .cell.image-cell img, .cell.image-cell video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+  /* Storybook game backdrop: pale sky, flat sun with a drawn rim, outlined
+     skyline and a pencilled floor grid. No external assets. */
+  .game-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background:
+      radial-gradient(circle 76px at 82% 20%, transparent 0 72px, var(--ink) 72px 74px, transparent 75px),
+      radial-gradient(circle 76px at 82% 20%, var(--lavender) 0 72px, transparent 73px),
+      linear-gradient(180deg, #fff9d8 0%, #f4f2ec 48%, var(--paper) 66%);
+  }
+  .game-city {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 48%;
+    height: 42%;
+    width: 100%;
+  }
+  /* Phones: the scene SVG covers with "slice", so a band this tall on a
+     narrow card zooms the 800-unit-wide artwork ~1.2x and crops ~300 units
+     off each side — the dragon (x 570-660) vanished entirely. A width-
+     proportional height keeps the zoom at 1 and the whole scene in frame. */
+  @media (max-width: 767px) {
+    .game-city { bottom: 56%; height: clamp(88px, 26vw, 130px); }
+  }
+  .dragon { filter: none; }
+  /* The scene SVGs are scaled to cover their box, so their outlines have to opt
+     out of that scaling to stay the same 2px weight as every CSS border. */
+  .hero-city rect, .hero-city polygon, .hero-city line, .hero-city circle,
+  .hero-city path, .hero-city ellipse,
+  .game-city rect, .game-city polygon, .game-city line, .game-city circle,
+  .game-city path, .game-city ellipse {
+    vector-effect: non-scaling-stroke;
+  }
+  .flame-outer, .burn-flame { stroke: #1a1a1a; stroke-width: 2; stroke-linejoin: round; }
+
+  /* The clouds drift on the spot, the cast breathes in place and sakura petals
+     tumble down. All live inside the hero SVG, so the transform units are
+     viewBox user units. */
+  @media (prefers-reduced-motion: no-preference) {
+    .cloud { animation: cloud-drift var(--cloud-dur, 9s) ease-in-out infinite alternate; animation-delay: calc(var(--i) * -1.7s); }
+    .cast-member { animation: cast-bob 2.6s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -0.35s); }
+    .petal {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: petal-fall var(--petal-dur, 9s) linear infinite;
+      animation-delay: calc(var(--i) * -1.9s);
+    }
+  }
+  @keyframes cloud-drift {
+    from { transform: translateX(-16px); }
+    to { transform: translateX(16px); }
+  }
+  @keyframes cast-bob {
+    from { transform: translateY(0); }
+    to { transform: translateY(-5px); }
+  }
+  @keyframes petal-fall {
+    0% { transform: translateY(-14px) rotate(0deg); opacity: 0; }
+    12% { opacity: 1; }
+    86% { opacity: 1; }
+    100% { transform: translateY(48px) rotate(58deg); opacity: 0; }
+  }
+  .game-grid {
+    position: absolute;
+    left: -50%;
+    right: -50%;
+    top: 52%;
+    bottom: -35%;
+    background:
+      linear-gradient(var(--ink-15) 2px, transparent 2px),
+      linear-gradient(90deg, var(--ink-15) 2px, transparent 2px);
+    background-size: 52px 52px;
+    transform: perspective(300px) rotateX(63deg);
+    transform-origin: 50% 0;
+    /* Same long fade as the hero floor — see .hero-grid */
+    -webkit-mask-image: linear-gradient(transparent, #000 55%);
+    mask-image: linear-gradient(transparent, #000 55%);
+  }
+  /* Track the raised skyline (see .game-city) so the floor still starts
+     exactly at the base of the buildings. */
+  @media (max-width: 767px) {
+    .game-grid { top: 44%; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .dragon { transform-box: fill-box; animation: dragon-bob 3.4s ease-in-out infinite alternate; }
+    .wing-front, .wing-back { transform-box: fill-box; transform-origin: 20% 100%; }
+    .wing-front { animation: wing-flap 0.9s ease-in-out infinite alternate; }
+    .wing-back { animation: wing-flap 0.9s ease-in-out infinite alternate-reverse; }
+    .flame-outer, .flame-inner { transform-box: fill-box; transform-origin: 100% 0; }
+    .flame-outer { animation: flame-flicker 0.32s ease-in-out infinite alternate; }
+    .flame-inner { animation: flame-flicker 0.21s ease-in-out infinite alternate-reverse; }
+    .burn-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: burn-dance 0.5s ease-in-out infinite alternate; }
+    .burn-flame.f2 { animation-duration: 0.38s; animation-delay: 0.1s; }
+    .burn-flame.f3 { animation-duration: 0.44s; animation-delay: 0.22s; }
+    .burn-glow { animation: glow-pulse 1.4s ease-in-out infinite alternate; }
+  }
+  @keyframes dragon-bob {
+    from { transform: translateY(0); }
+    to { transform: translateY(-7px); }
+  }
+  @keyframes wing-flap {
+    from { transform: rotate(-16deg); }
+    to { transform: rotate(12deg); }
+  }
+  @keyframes flame-flicker {
+    from { transform: scale(0.92, 0.85); opacity: 0.75; }
+    to { transform: scale(1.04, 1.08); opacity: 1; }
+  }
+  @keyframes burn-dance {
+    from { transform: scaleY(0.8); opacity: 0.8; }
+    to { transform: scaleY(1.2); opacity: 1; }
+  }
+  @keyframes glow-pulse {
+    from { opacity: 0.45; }
+    to { opacity: 0.85; }
+  }
+  .cell.image-cell .cell-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--card) 0%, rgba(255, 255, 255, 0.86) 34%, rgba(255, 255, 255, 0) 72%);
+  }
+  /* Phones: the copy sits lower on the taller card, so the wash pulls back
+     with it — reaching 80% up washed the skyline (and the dragon) to a ghost. */
+  @media (max-width: 767px) {
+    .cell.image-cell .cell-shade {
+      background: linear-gradient(to top, var(--card) 0%, rgba(255, 255, 255, 0.88) 36%, rgba(255, 255, 255, 0) 54%);
+    }
+  }
+  .cell.image-cell .cell-body { position: relative; padding: 28px; }
+  .cell.image-cell h3 { font-size: 2rem; }
+
+  /* Cards lift off the page on hover. The .reveal.in selector has to be matched
+     because it also sets transform, and would otherwise win the cascade. */
+  .cell { transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+  .cell:hover, html.js .cell.reveal.in:hover { transform: translate(-2px, -2px); box-shadow: var(--pop-lift); }
+
+  .chips { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: var(--pill);
+    box-shadow: var(--pop-sm);
+    padding: 4px 14px;
+    font-size: 1rem;
+    color: var(--ink);
+    transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.2s;
+  }
+  a.chip:hover { transform: translate(-2px, -2px); box-shadow: var(--pop-sm-lift); background: var(--blue-tint); }
+  .chip.highlight { background: var(--pink); color: var(--on-bright); }
+  a.chip.highlight:hover { background: var(--pink); }
+  .chip.soon { background: var(--pink); color: var(--on-bright); font-weight: 400; }
+
+  /* Narrow bento cells (the span-2 column is ~323px of usable width) carry up to
+     a dozen chips. At the full chip scale each one claimed its own row, so here
+     the chip drops a step in size and sheds the external-link arrow — the whole
+     pill is already the link. Two to three now sit per row; the wide span-4 cell
+     keeps the full-size chips. */
+  .cell.span-2 .chips { gap: 8px; }
+  .cell.span-2 .chip { padding: 3px 10px; font-size: 0.875rem; gap: 5px; }
+  .cell.span-2 .chip > svg { display: none; }
+  .cell.span-2 .chip-new,
+  .cell.span-2 .chip-hot { font-size: 0.5rem; padding: 3px 5px; }
+  /* Phones drop these cells to full width, but on a 375px screen that is still
+     only ~271px of usable row once the 28px card padding is taken out — tighter
+     than the desktop column. Reclaim width from the padding first, then take the
+     last step off the chip. Scoped to ≤430px: by ~480px the full-width card is
+     already roomier than the desktop column and needs neither. */
+  @media (max-width: 430px) {
+    .cell.span-2 { padding: 20px; }
+    .cell.span-2 .chip { padding: 3px 8px; font-size: 0.8125rem; }
+    .cell.span-2 .chips { gap: 7px; }
+  }
+  /* Small badge riding inside a chip. Same shape for both labels; --hot marks a
+     shipped, live product, --new marks a fresh release. */
+  .chip-new,
+  .chip-hot {
+    font-style: normal;
+    font-family: var(--ui);
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    padding: 4px 7px;
+    border: 2px solid var(--ink);
+    border-radius: var(--pill);
+    background: var(--pink);
+    color: var(--on-bright);
+  }
+  /* The HOT! badge sits crooked like a sticker pressed on by hand, and gives a
+     short shake every few seconds. The animation is on the badge only, so it
+     never fights the chip's own hover lift. */
+  .chip-hot { transform: rotate(-4deg); transform-origin: 50% 60%; }
+  .chip-featured .chip-hot { background: var(--hot-purple-soft); }
+  @media (prefers-reduced-motion: no-preference) {
+    .chip-hot { animation: badge-shake 2.8s ease-in-out infinite; }
+    a.chip:hover .chip-hot { animation-play-state: paused; }
+  }
+  @keyframes badge-shake {
+    0%, 70%, 100% { transform: rotate(-4deg) scale(1); }
+    76% { transform: rotate(7deg) scale(1.12); }
+    82% { transform: rotate(-7deg) scale(1.09); }
+    88% { transform: rotate(5deg) scale(1.05); }
+    94% { transform: rotate(-2deg) scale(1.02); }
+  }
+
+  /* Every HOT project shares one purple treatment, so the state reads
+     consistently across directions and services.
+     It floats clear of its own hard shadow and a sheen sweeps across the fill.
+     All flat — the offset shadow stretches, nothing blurs or glows. */
+  a.chip.chip-featured {
+    color: #ffffff;
+    border-color: var(--ink);
+    background:
+      linear-gradient(100deg,
+        var(--hot-purple) 0 40%,
+        var(--hot-purple-sheen) 50%,
+        var(--hot-purple) 60% 100%);
+    background-size: 260% 100%;
+    background-position: 100% 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    a.chip.chip-featured {
+      animation: gz-float 1.5s ease-in-out infinite alternate,
+                 gz-sweep 2.6s ease-in-out infinite;
+    }
+    /* animation: none (not paused) so the chip's own hover lift can take over */
+    a.chip.chip-featured:hover {
+      animation: none;
+      transform: translate(-2px, -2px);
+      box-shadow: var(--pop-sm-lift);
+      background-position: 50% 0;
+    }
+  }
+  @keyframes gz-float {
+    from { transform: translate(0, 0) rotate(0deg); box-shadow: var(--pop-sm); }
+    to { transform: translate(-2px, -2px) rotate(-1.5deg); box-shadow: var(--pop-sm-lift); }
+  }
+  @keyframes gz-sweep {
+    0%, 30% { background-position: 100% 0; }
+    80%, 100% { background-position: 0 0; }
+  }
+  .chip svg { flex: none; }
+
+  /* ---------- Solutions ---------- */
+  .sol-grid { margin-top: 48px; display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 768px) { .sol-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* Gear Zero: the one full-width service card. Flat purple rather than a
+     sheet of ink — on this page dark ink is for outlines and shadows only,
+     and the flagship shouts with the brand's loud color instead. Everything
+     inside keeps the standard ink borders and ink shadows. */
+  .cell.svc-feature {
+    grid-column: 1 / -1;
+    background: var(--gear-yellow);
+    box-shadow: var(--pop-lg);
+    padding: 32px;
+    color: var(--on-bright);
+  }
+  html.js .cell.svc-feature.reveal.in:hover,
+  .cell.svc-feature:hover { box-shadow: var(--pop-lg-lift); }
+  .cell.svc-feature h3 { color: var(--on-bright); font-size: clamp(2rem, 3.4vw, 2.75rem); }
+  .cell.svc-feature p { color: rgba(21, 22, 26, 0.72); }
+  .cell.svc-feature .svc-kicker {
+    margin-top: 0;
+    font-family: var(--ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--on-bright);
+  }
+  .cell.svc-feature .svc-lead { margin-top: 4px; font-size: 1.25rem; color: var(--on-bright); }
+  .cell.svc-feature .svc-cta { color: var(--on-bright); }
+  .cell.svc-feature .svc-points > div { background: #fff8d7; border-color: var(--on-bright); }
+  .cell.svc-feature .svc-points h4 { color: var(--on-bright); }
+  .svc-feature-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 46%);
+    align-items: center;
+    gap: 34px;
+  }
+  .svc-feature-copy { max-width: 42rem; }
+  .svc-feature-summary { margin-top: 14px; font-size: 1.0625rem; line-height: 1.55; }
+  .svc-feature-note { margin-top: 10px; font-size: 0.975rem; line-height: 1.55; }
+  .svc-benefits { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .svc-benefits span {
+    background: #fff8d7;
+    border: 2px solid var(--on-bright);
+    border-radius: var(--pill);
+    padding: 6px 12px;
+    font-family: var(--ui);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .svc-feature-copy .svc-cta { margin-top: 22px; }
+  .svc-feature-media {
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--on-bright);
+    border: 2px solid var(--on-bright);
+    border-radius: 14px;
+    box-shadow: var(--pop);
+  }
+  .svc-feature-media video { display: block; width: 100%; height: 100%; object-fit: contain; }
+  @media (max-width: 899px) {
+    .svc-feature-layout { grid-template-columns: 1fr; gap: 26px; }
+    .svc-feature-copy { max-width: none; }
+  }
+  .svc-head {
+    display: flex;
+    flex-wrap: wrap;
+    /* Centred rather than bottom-aligned, so the button sits level with the
+       "Gear Zero" title instead of dropping down beside the tagline. */
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .svc-cta {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--pink);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    border-radius: var(--pill);
+    box-shadow: var(--pop-sm);
+    padding: 10px 22px;
+    font-size: 1.0625rem;
+    transition: transform 0.14s ease, box-shadow 0.14s ease;
+  }
+  .svc-cta:hover { transform: translate(-2px, -2px); box-shadow: var(--pop-sm-lift); }
+  .svc-cta:active { transform: translate(2px, 2px); box-shadow: 0 0 0 0 var(--ink); }
+  .svc-points { margin-top: 26px; display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 768px) { .svc-points { grid-template-columns: repeat(3, 1fr); } }
+  .svc-points > div {
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    box-shadow: var(--pop-sm);
+    padding: 16px 18px;
+  }
+  .svc-points h4 { font-family: var(--display); font-size: 1.3125rem; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); }
+  .cell.svc-feature .svc-points p { margin-top: 4px; font-size: 1rem; line-height: 1.45; }
+
+  /* Synthetic World: a compact full-width bridge between the flagship product
+     and the two capability cards, keeping the final row balanced. */
+  .cell.svc-synthetic {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 46%);
+    align-items: center;
+    gap: 32px;
+    background: var(--blue-tint);
+    padding: 28px 32px;
+  }
+  .svc-synthetic-copy { max-width: 54rem; }
+  .svc-synthetic h3 { font-size: clamp(1.75rem, 3vw, 2.25rem); }
+  .svc-synthetic p { margin-top: 10px; }
+  .svc-synthetic-lead { font-size: 1.2rem; line-height: 1.45; color: var(--ink); }
+  .svc-synthetic-examples { font-weight: 600; color: var(--ink); }
+  .svc-synthetic-closing { font-weight: 700; color: var(--ink); }
+  .svc-synthetic .svc-cta { margin-top: 20px; color: var(--on-bright); }
+  .svc-synthetic-media {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--ink);
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: var(--pop);
+  }
+  .svc-synthetic-media video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  @media (max-width: 899px) {
+    .cell.svc-synthetic { grid-template-columns: 1fr; align-items: start; gap: 24px; padding: 24px; }
+  }
+
+  /* ---------- Blog (compact placeholder) ---------- */
+  .blog-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    border-top: 2px dashed var(--ink-15);
+    padding-top: 44px;
+  }
+  .blog-soon-tag { font-family: var(--ui); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; }
+
+  /* ---------- About ---------- */
+  .about {
+    background: var(--blue-tint);
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  .about-inner { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  @media (min-width: 1024px) { .about-inner { padding: 0 40px; } }
+  .about h2 { max-width: none; }
+  .about .lead { margin-top: 26px; font-size: 1.3125rem; line-height: 1.6; color: var(--ink); }
+  .about .past-label { margin-top: 40px; font-family: var(--ui); font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; }
+  .about .more-note { margin-top: 20px; font-size: 1.0625rem; line-height: 1.55; color: var(--ink); }
+  .about .more-note a { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .about .more-note a:hover { background: var(--pink); border-radius: 5px; padding: 0 4px; text-decoration: none; }
+
+  /* ---------- Contact CTA ---------- */
+  .contact { position: relative; overflow: hidden; padding: 140px 0; }
+  /* Flat purple sticker behind the closing pitch, drawn in ink like everything else */
+  .contact-glow {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: min(900px, 92vw); height: 380px;
+    transform: translate(-50%, -50%) rotate(-3deg);
+    border-radius: var(--pill);
+    background: var(--purple);
+    border: 2px solid var(--ink);
+    box-shadow: var(--pop-lg);
+    pointer-events: none;
+  }
+  /* Phones: the copy wraps to ~5 lines and a 380px pill can't hold it — the
+     heading and button spilled across the sticker's ink border. A taller
+     rounded rectangle keeps everything on the sticker; the pill's end-caps
+     were eating the corners, so the radius drops with it. */
+  @media (max-width: 639px) {
+    .contact { padding: 110px 0; }
+    .contact-glow { height: 480px; border-radius: 44px; transform: translate(-50%, -50%) rotate(-2deg); }
+  }
+  .contact-inner { position: relative; max-width: 800px; margin: 0 auto; padding: 0 24px; text-align: center; }
+  /* Floor matches .section h2 so the closing line is never the smaller heading */
+  .contact h2 { max-width: none; font-size: clamp(2.5rem, 4.8vw, 3.5rem); }
+  .contact p { margin: 18px auto 0; max-width: 28rem; font-size: 1.1875rem; color: var(--ink-70); }
+  .contact .btn-primary { margin-top: 32px; padding: 14px 34px; font-size: 1.1875rem; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--card); border-top: 2px solid var(--ink); }
+  .footer-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 72px 24px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1024px) { .footer-grid { padding: 72px 40px; } }
+  .footer-grid .mission { margin-top: 14px; max-width: 20rem; font-size: 1.0625rem; line-height: 1.5; color: var(--ink-70); }
+  .footer-grid .socials { display: flex; margin-top: 22px; }
+  .footer-grid .col-title { font-family: var(--ui); font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; }
+  .footer-grid ul { margin-top: 14px; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  /* Reserves the 17px a .col-title would have occupied, so a heading-less column
+     still starts its links level with the headed one next to it. */
+  .footer-col-bare ul { margin-top: 31px; }
+  @media (max-width: 767px) { .footer-col-bare ul { margin-top: 14px; } }
+  .footer-grid ul a, .footer-grid ul span { font-size: 1.0625rem; color: var(--ink-70); }
+  .footer-grid ul a { transition: color 0.2s; }
+  .footer-grid ul a:hover { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .footer-bottom {
+    border-top: 2px dashed var(--ink-15);
+    margin: 0 24px;
+    padding: 22px 0;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--ink-70);
+  }
+
+  /* ==========================================================================
+     STYLE ITERATION — warm "studio" theme (orange / red / cream)
+     --------------------------------------------------------------------------
+     Layered on top of the paper-and-ink base. The reference is a flat, warm
+     illustration system: orange sky, deep red ground, cream clouds, heavy
+     white display type, big rounded cards with soft shadows and lots of air.
+     Everything below only re-tunes tokens and component surfaces.
+     ========================================================================== */
+
+  :root {
+    /* ---- 1. Colour -------------------------------------------------------
+       Ground is a warm cream, not cold paper. Primary is the reference orange,
+       secondary is the deep red used for the ground / footer. Text is a warm
+       near-black. Accents collapse to the single orange/red family. */
+    --paper: #fdf6ec;
+    --card: #ffffff;
+    --card-alt: #fdf3e3;
+    --band: #f3e4ce;
+    --ink: #241e1a;
+    --ink-70: rgba(36, 30, 26, 0.72);
+    --ink-45: rgba(36, 30, 26, 0.5);
+    --ink-15: rgba(36, 30, 26, 0.12);
+    --shadow: #241e1a;
+    --on-bright: #241e1a;
+
+    --orange: #f58220;
+    --orange-deep: #e8710a;
+    --red: #c1272d;
+    --red-deep: #7e1218;
+    --cream: #f3e1c4;
+
+    --purple: #f58220;
+    --pink: #f58220;
+    --lavender: #f58220;
+    --blue: #241e1a;
+    --blue-tint: #fdf0dd;
+    --hot-purple: #c1272d;
+    --hot-purple-sheen: #d93b3b;
+    --hot-purple-soft: #f6d0b8;
+    --gear-yellow: #ffb43d;
+    --gold: #e0a53a;
+
+    /* ---- 4. Component shape ---------------------------------------------
+       Softer, larger radii and diffuse shadows instead of the hard offset pops. */
+    --radius: 22px;
+    --radius-lg: 32px;
+    --pop-sm: 0 2px 6px rgba(36, 30, 26, 0.1);
+    --pop: 0 8px 22px rgba(36, 30, 26, 0.12);
+    --pop-lg: 0 18px 44px rgba(36, 30, 26, 0.16);
+    --pop-sm-lift: 0 5px 12px rgba(36, 30, 26, 0.16);
+    --pop-lift: 0 14px 30px rgba(36, 30, 26, 0.18);
+    --pop-lg-lift: 0 26px 56px rgba(36, 30, 26, 0.22);
+
+    --display-tracking: -0.01em;
+  }
+
+  /* ---- 3. Spacing ------------------------------------------------------- */
+  .container { padding: 0 28px; }
+  @media (min-width: 1024px) { .container { padding: 0 48px; } }
+  .section { padding: 128px 0; }
+  .bento, .sol-grid { gap: 24px; margin-top: 56px; }
+
+  /* ---- 2. Type ---------------------------------------------------------- */
+  .section h2 {
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: clamp(2.25rem, 4.6vw, 3.75rem);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+  }
+  .eyebrow { color: var(--orange); font-weight: 700; letter-spacing: 0.18em; }
+  .eyebrow::before { width: 28px; background: var(--orange); }
+
+  /* ---- 4. Nav ----------------------------------------------------------- */
+  header {
+    background: rgba(253, 246, 236, 0.9);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(36, 30, 26, 0.08);
+    box-shadow: 0 2px 18px rgba(36, 30, 26, 0.05);
+  }
+  .brand-name { font-family: var(--display); font-size: 1.3rem; font-weight: 800; letter-spacing: 0.01em; text-transform: uppercase; }
+  .brand-name { text-transform: none; }
+  .brand-name b { background: var(--orange); color: #ffffff; border-radius: 6px; }
+  .nav-links a { text-transform: uppercase; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; }
+  .nav-links a::after { height: 2px; background: var(--orange); }
+  .nav-cta { color: #ffffff; }
+  .socials a.gh-stars, .lang { border: 0; box-shadow: var(--pop-sm); }
+  .lang-btn { border-left: 1px solid var(--ink-15); }
+  .lang-btn:first-child { border-left: 0; }
+  .lang-btn.is-on { background: var(--orange); color: #ffffff; }
+
+  /* ---- Ticker ----------------------------------------------------------- */
+  .ticker { background: var(--red); border-bottom: 0; }
+  .marquee-track span { color: #fdf6ec; }
+  .marquee-track span::after { background: var(--orange); }
+
+  /* ---- 5. Hero ----------------------------------------------------------
+     Full orange sky deepening to the reference red at the fold, with the
+     display headline set heavy and white. */
+  .hero { border-bottom: 0; }
+  .hero-scene { background: linear-gradient(180deg, #f9a83f 0%, #f58220 38%, #e8710a 66%, #cf4f0a 100%); }
+  .hero-grid { display: none; }
+  .hero-shade {
+    background: linear-gradient(to top,
+      rgba(126, 18, 24, 0.95) 0%,
+      rgba(126, 18, 24, 0.72) 20%,
+      rgba(126, 18, 24, 0.28) 46%,
+      rgba(126, 18, 24, 0) 70%);
+  }
+  .hero h1 {
+    color: #ffffff;
+    font-weight: 800;
+    text-transform: none;
+    letter-spacing: -0.02em;
+    max-width: none;
+    font-size: clamp(1.5rem, 3.7vw, 3rem);
+    line-height: 1.12;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+  .hero h1 .accent { color: #ffd9a0; text-shadow: none; }
+  .hero .sub { color: rgba(255, 255, 255, 0.9); }
+  .hero .btn-primary { background: #ffffff; color: var(--ink); }
+  .hero .btn-primary:hover { background: #fff3e2; }
+  .hero .btn-ghost { color: #ffffff; border-color: rgba(255, 255, 255, 0.65); background: transparent; }
+  .hero .btn-ghost:hover { background: rgba(255, 255, 255, 0.15); }
+  /* Decorative marks pinned to the four corners of the hero */
+  .hero-marks { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+  .hero-mark { position: absolute; width: 52px; height: 52px; opacity: 0.92; }
+  .hm-tl { top: 92px; left: 34px; }
+  .hm-tr { top: 92px; right: 34px; }
+  .hm-bl { bottom: 34px; left: 34px; }
+  .hm-br { bottom: 34px; right: 34px; }
+  @media (max-width: 1079px) {
+    .hm-bl, .hm-br { display: none; }
+  }
+  @media (max-width: 767px) {
+    /* Phones: the scene fills the top of the hero, so corner marks would sit on
+       the characters — drop them and keep the composition clean. */
+    .hero-mark { display: none; }
+  }
+
+  /* ---- Buttons ---------------------------------------------------------- */
+  .btn-primary, .btn-ghost { border: 0; box-shadow: var(--pop); padding: 14px 30px; font-weight: 700; }
+  .btn-primary { background: var(--orange); color: #ffffff; }
+  .btn-ghost { background: transparent; border: 2px solid var(--ink); box-shadow: none; }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: var(--pop-lift); background: var(--orange-deep); }
+  .btn-ghost:hover { transform: translateY(-3px); background: var(--card-alt); }
+  .btn-primary:active, .btn-ghost:active { transform: translateY(0); box-shadow: var(--pop-sm); }
+
+  /* ---- Gear Zero panel -------------------------------------------------- */
+  .gz-window { border: 0; border-radius: 24px; }
+  .gz-dot { border: 0; }
+
+  /* ---- Cards / bento ---------------------------------------------------- */
+  .cell { border: 0; border-radius: var(--radius-lg); box-shadow: var(--pop); padding: 32px; }
+  .cell:hover, html.js .cell.reveal.in:hover { transform: translateY(-4px); box-shadow: var(--pop-lg); }
+  .cell h3 { text-transform: uppercase; font-weight: 800; letter-spacing: -0.01em; }
+  .cell-video-wall video, .cell-video-grid video { border: 0; border-radius: 16px; }
+  .svc-feature-media, .svc-synthetic-media { border: 0; border-radius: 20px; }
+
+  /* ---- Chips ------------------------------------------------------------ */
+  .chip { border: 0; box-shadow: var(--pop-sm); padding: 7px 16px; font-weight: 600; }
+  a.chip:hover { transform: translateY(-2px); box-shadow: var(--pop-sm-lift); background: var(--card); }
+  .chip.highlight { background: var(--orange); color: #ffffff; }
+  .chip-new, .chip-hot { border: 0; background: var(--red); color: #ffffff; }
+  a.chip.chip-featured { border-color: transparent; }
+
+  /* ---- Solutions -------------------------------------------------------- */
+  .cell.svc-feature {
+    background: linear-gradient(140deg, #d43a34 0%, #a81f24 55%, #7e1218 100%);
+    color: #ffffff;
+  }
+  .cell.svc-feature h3,
+  .cell.svc-feature .svc-kicker,
+  .cell.svc-feature .svc-lead,
+  .cell.svc-feature .svc-cta,
+  .cell.svc-feature .svc-points h4 { color: #ffffff; }
+  .cell.svc-feature p,
+  .cell.svc-feature .svc-points p { color: rgba(255, 255, 255, 0.85); }
+  .cell.svc-feature .svc-points > div { background: rgba(255, 255, 255, 0.12); border: 0; box-shadow: none; }
+  .cell.svc-feature .svc-benefits span { background: rgba(255, 255, 255, 0.16); border: 0; color: #ffffff; }
+  .cell.svc-feature .svc-cta { background: #ffffff; color: var(--red); border: 0; box-shadow: none; }
+  .cell.svc-synthetic { background: var(--card-alt); }
+
+  /* ---- About ------------------------------------------------------------ */
+  .about { background: #fdf0dd; border: 0; }
+  /* About: company profile */
+  .about-inner { max-width: 1120px; }
+  .about .lead, .about .about-inner > p { max-width: 48rem; }
+  .about h2 { text-transform: none; }
+  .about .about-h3 {
+    margin-top: 48px;
+    font-family: var(--display);
+    font-size: 1.375rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  .about .profile-grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 26px 64px;
+  }
+  @media (min-width: 768px) {
+    .about .profile-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .about .profile-col { display: flex; flex-direction: column; gap: 24px; }
+  .about .profile-row {
+    display: grid;
+    grid-template-columns: 124px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .about .profile-row > span {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .about .profile-row > p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .about .profile-row .about-list {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .about .about-list li {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .about .about-list li::marker { color: var(--orange); font-weight: 700; }
+  @media (max-width: 479px) {
+    .about .profile-row { grid-template-columns: 104px 1fr; gap: 14px; }
+    .about .profile-grid { gap: 22px; }
+  }
+  .about .about-inner > p:not(.lead) { margin-top: 16px; }
+
+  /* ---- Contact ---------------------------------------------------------- */
+  .contact-glow { border: 0; box-shadow: var(--pop-lg); }
+  .contact h2 { text-transform: uppercase; font-weight: 800; }
+  .contact .btn-primary { background: var(--ink); color: #ffffff; }
+  .contact .btn-primary:hover { background: #000000; }
+
+  /* ---- Footer ----------------------------------------------------------- */
+  footer {
+    background: linear-gradient(180deg, #c1272d 0%, #8f1418 55%, #6d0f14 100%);
+    border-top: 0;
+    color: #ffffff;
+  }
+  footer .brand-mark { color: #ffffff; --logo-accent: #ffd9a8; }
+  footer .brand-name { color: #ffffff; }
+  footer .brand-name b { background: rgba(255, 255, 255, 0.92); color: var(--red); }
+  .footer-grid .mission { color: rgba(255, 255, 255, 0.78); }
+  .footer-grid .col-title { color: #ffffff; }
+  .footer-grid ul a, .footer-grid ul span { color: rgba(255, 255, 255, 0.82); }
+  .footer-grid ul a:hover { color: #ffffff; }
+  .footer-grid .socials a { color: #ffffff; }
+  .footer-bottom { color: rgba(255, 255, 255, 0.7); border-top: 1px solid rgba(255, 255, 255, 0.22); }
+  .footer-brand { max-width: 24rem; }
+  .footer-nav { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .footer-nav a {
+    font-family: var(--display);
+    font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #ffffff;
+    transition: color 0.2s;
+  }
+  .footer-nav a:hover { color: var(--orange); }
+  @media (min-width: 768px) {
+    .footer-grid { grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
+    .footer-nav { align-items: flex-end; text-align: right; margin-top: 0; }
+  }
+  .footer-grid { padding: 88px 28px; gap: 56px; }
+  @media (min-width: 1024px) { .footer-grid { padding: 88px 48px; } }
+
+  /* ---- Header on the brand orange, controls outlined in white -----------
+     Matches the reference: the top bar shares the hero's orange, and the
+     language switch is a white-outlined rounded rectangle with white text. */
+  header {
+    background: var(--orange);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-bottom: 0;
+    box-shadow: 0 2px 18px rgba(126, 18, 24, 0.16);
+  }
+  .brand-mark { color: #ffffff; --logo-accent: #ffe3b0; }
+  .brand-name { color: #ffffff; }
+  .brand-name b { background: #ffffff; color: var(--orange); }
+  .nav-links a { color: #ffffff; }
+  .nav-links a::after { background: #ffffff; }
+  .nav-cta { background: #ffffff; color: var(--orange); }
+  .nav-cta:hover { background: #fff3e2; }
+  .lang {
+    background: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 14px;
+    box-shadow: none;
+  }
+  .lang-btn {
+    background: transparent;
+    color: #ffffff;
+    border-left: 1px solid rgba(255, 255, 255, 0.45);
+    padding: 7px 12px;
+  }
+  .lang-btn:first-child { border-left: 0; }
+  .lang-btn:hover { background: rgba(255, 255, 255, 0.16); }
+  .lang-btn.is-on { background: #ffffff; color: var(--orange); }
+  @media (max-width: 479px) {
+    .lang-btn { padding: 7px 9px; }
+  }
+  /* Very narrow phones: shrink the brand, switcher and CTA together so the
+     whole bar (logo + wordmark + EN/中/日 + Get in touch) fits on one row
+     down to 320px instead of pushing the CTA off-screen. */
+  @media (max-width: 404px) {
+    .nav-inner { padding: 0 12px; gap: 8px; }
+    .brand { gap: 6px; }
+    .brand-mark { width: 28px; height: 28px; border-radius: 9px; }
+    .brand-name { font-size: 0.9375rem; }
+    .nav-right { gap: 8px; }
+    .nav-cta { padding: 6px 10px; font-size: 0.75rem; }
+    .lang-btn { padding: 6px 5px; font-size: 0.625rem; }
+  }

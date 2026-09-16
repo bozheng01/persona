@@ -1586,13 +1586,16 @@
   .btn-ghost:hover { transform: translateY(-3px); background: var(--card-alt); }
   .btn-primary:active, .btn-ghost:active { transform: translateY(0); box-shadow: var(--pop-sm); }
 
-  /* ---- 我的衣柜 demo panel: iPhone-style frame + cream/blush skin ------- */
+  /* ---- 我的衣柜 demo panel: portrait iPhone frame + cream/blush skin ---- */
+  .gz-panel { width: min(300px, 100%); margin: 0 auto; }
   .gz-window {
     position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 19.5;
     background: #111318;
     border: 0;
-    border-radius: 46px;
-    padding: 13px;
+    border-radius: 48px;
+    padding: 12px;
     box-shadow: 0 30px 70px rgba(90, 58, 56, 0.26), 0 0 0 1px #2a2d33 inset;
     overflow: visible;
   }
@@ -1605,30 +1608,32 @@
     background: #2a2d33;
     border-radius: 2px;
   }
-  .gz-window::before { left: -3px; top: 118px; height: 54px; }
-  .gz-window::after { right: -3px; top: 156px; height: 78px; }
+  .gz-window::before { left: -3px; top: 92px; height: 44px; }
+  .gz-window::after { right: -3px; top: 124px; height: 64px; }
   /* Dynamic-Island pill */
   .gz-island {
     position: absolute;
     z-index: 3;
-    top: 20px;
+    top: 19px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90px;
+    width: 82px;
     height: 22px;
     border-radius: 999px;
     background: #111318;
   }
+  /* Phone screen: a flex column so bar / screen / build / versions / CTA stack */
   .gz-body {
     position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
     background: #fbf6f2;
-    border-radius: 34px;
+    border-radius: 36px;
     overflow: hidden;
   }
-  .gz-bar { padding: 32px 16px 10px; }
-  .gz-dot { border: 0; }
-  /* Gentle float (uses the standalone `translate` property so it composes with
-     the drag transform set by JS). */
+  /* Gentle float (standalone `translate` so it composes with the drag transform). */
   @media (prefers-reduced-motion: no-preference) {
     .gz-window { animation: gz-float 4.5s ease-in-out infinite alternate; }
   }
@@ -1636,42 +1641,12 @@
     from { translate: 0 0; }
     to { translate: 0 -8px; }
   }
-  /* Let the panel grids shrink below their content's min width so the phone
-     never forces a wider layout on small screens. */
-  .gz-main { grid-template-columns: minmax(0, 37%) minmax(0, 1fr); }
-  .gz-versions { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .gz-v { min-width: 0; }
-  .gz-v > span:last-child { overflow-wrap: anywhere; }
-  @media (max-width: 559px) {
-    .gz-main { grid-template-columns: 1fr; }
-    .gz-window { padding: 9px; border-radius: 40px; }
-    .gz-body { border-radius: 30px; }
-    .gz-versions { gap: 4px; padding: 14px 8px; }
-    .gz-v > span:last-child { font-size: 0.625rem; }
-  }
-  .gz-dot-y { background: #f0d9cf; }
-  .gz-dot-p { background: #db8a7c; }
-  .gz-bar { background: #f4e8e1; border-bottom: 1px solid rgba(90, 58, 56, 0.1); }
+  .gz-bar { flex: none; padding: 30px 16px 10px; background: #f4e8e1; border-bottom: 1px solid rgba(90, 58, 56, 0.1); }
   .gz-bar-title { color: #5a3a38; }
   .gz-live { background: #db8a7c; border: 0; color: #ffffff; }
   .gz-live-dot { background: #ffffff; }
-  .gz-build { border-right: 1px solid rgba(90, 58, 56, 0.1); }
-  .gz-said {
-    background: #f2e0da;
-    color: #5a3a38;
-    border-radius: 14px;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 0.9375rem;
-    line-height: 1.4;
-  }
-  .gz-steps li { color: #5a3a38; }
-  .gz-steps li i { color: #db8a7c; }
-  .gz-track { background: rgba(90, 58, 56, 0.12); }
-  .gz-fill { background: #db8a7c; }
-  /* Demo screen: a light blush stage; portrait (phone-like) on wide screens to
-     suit the try-on stills, squarer on narrow screens so it isn't a wall. */
-  .gz-screen { background: #f3e7e0; aspect-ratio: 1 / 1; }
-  @media (min-width: 1080px) { .gz-screen { aspect-ratio: 4 / 5; } }
+  .gz-main { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+  .gz-screen { flex: 1 1 auto; min-height: 0; aspect-ratio: auto; background: #f3e7e0; }
   .gz-screen .gz-media {
     position: absolute;
     inset: 0;
@@ -1684,21 +1659,46 @@
   .gz-screen video.gz-media { object-fit: cover; }
   .gz-screen img.gz-media { object-fit: contain; }
   .gz-scrim { background: #f3e7e0; color: rgba(90, 58, 56, 0.5); }
-  .gz-versions { border-top: 1px solid rgba(90, 58, 56, 0.1); }
+  .gz-build {
+    flex: none;
+    padding: 16px;
+    border-right: 0;
+    border-top: 1px solid rgba(90, 58, 56, 0.1);
+    justify-content: flex-start;
+  }
+  .gz-said {
+    background: #f2e0da;
+    color: #5a3a38;
+    border-radius: 14px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+  .gz-steps { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
+  .gz-steps li { color: #5a3a38; }
+  .gz-steps li i { color: #db8a7c; }
+  .gz-track { background: rgba(90, 58, 56, 0.12); }
+  .gz-fill { background: #db8a7c; }
+  .gz-versions { flex: none; border-top: 1px solid rgba(90, 58, 56, 0.1); grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .gz-vline { background: rgba(90, 58, 56, 0.12); }
+  .gz-v { min-width: 0; }
   .gz-vdot { background: #db8a7c; border-color: #db8a7c; color: #ffffff; }
-  .gz-v > span:last-child { color: rgba(90, 58, 56, 0.62); }
-  .gz-start { border-top: 1px solid rgba(90, 58, 56, 0.1); color: #5a3a38; }
+  .gz-v > span:last-child { color: rgba(90, 58, 56, 0.62); overflow-wrap: anywhere; }
+  .gz-start { flex: none; border-top: 1px solid rgba(90, 58, 56, 0.1); color: #5a3a38; padding: 12px 14px; gap: 10px; }
   .gz-start:hover { background: rgba(219, 138, 124, 0.1); }
   .gz-logo-name {
     font-family: var(--display);
-    font-size: 1.25rem;
+    font-size: 1.0625rem;
     font-weight: 800;
     letter-spacing: 0.01em;
+    white-space: nowrap;
     color: #5a3a38;
   }
-  .gz-start-cta { background: #db8a7c; color: #ffffff; border: 0; box-shadow: none; outline: 0; }
+  .gz-start-cta { background: #db8a7c; color: #ffffff; border: 0; box-shadow: none; outline: 0; padding: 5px 12px; font-size: 0.875rem; }
   .gz-start:hover .gz-start-cta { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(219, 138, 124, 0.42); }
+  .gz-dot { border: 0; }
+  .gz-dot-y { background: #f0d9cf; }
+  .gz-dot-p { background: #db8a7c; }
   @keyframes gz-stop {
     0%, 50% { border-color: rgba(90, 58, 56, 0.3); background: transparent; color: #5a3a38; }
     56%, 100% { border-color: #db8a7c; background: #db8a7c; color: #ffffff; }

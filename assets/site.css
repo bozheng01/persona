@@ -1627,6 +1627,15 @@
   }
   .gz-bar { padding: 32px 16px 10px; }
   .gz-dot { border: 0; }
+  /* Gentle float (uses the standalone `translate` property so it composes with
+     the drag transform set by JS). */
+  @media (prefers-reduced-motion: no-preference) {
+    .gz-window { animation: gz-float 4.5s ease-in-out infinite alternate; }
+  }
+  @keyframes gz-float {
+    from { translate: 0 0; }
+    to { translate: 0 -8px; }
+  }
   /* Let the panel grids shrink below their content's min width so the phone
      never forces a wider layout on small screens. */
   .gz-main { grid-template-columns: minmax(0, 37%) minmax(0, 1fr); }

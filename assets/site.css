@@ -1589,6 +1589,20 @@
   /* ---- Gear Zero panel -------------------------------------------------- */
   .gz-window { border: 0; border-radius: 24px; }
   .gz-dot { border: 0; }
+  /* Demo screen: one dark stage; media crossfades between the try-on video and
+     the two dress-up stills. */
+  .gz-screen { background: #111318; }
+  .gz-screen .gz-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .gz-screen .gz-media.is-on { opacity: 1; }
+  .gz-screen video.gz-media { object-fit: cover; }
+  .gz-screen img.gz-media { object-fit: contain; }
 
   /* ---- Cards / bento ---------------------------------------------------- */
   .cell { border: 0; border-radius: var(--radius-lg); box-shadow: var(--pop); padding: 32px; }

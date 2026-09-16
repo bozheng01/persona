@@ -39,14 +39,17 @@
           /* Gear Zero build panel */
           'Someone is building one right now': '现在就有人在做一个',
           'Live': '进行中',
+          '“AI virtual try-on — full-body demo”': '「AI试衣 — 全身搭配演示」',
+          '“Casual look”': '「休闲搭配」',
+          '“Jacket look”': '「外套搭配」',
           '“A first-person shooter in a city buried in ash”': '「一个发生在被灰烬埋掉的城市里的第一人称射击」',
           '“A kart racer through a neon sunset town”': '「一个穿过霓虹黄昏小镇的卡丁车竞速」',
           '“A top-down extraction shooter in a shipping yard”': '「一个发生在货运场的俯视角撤离射击」',
           '“A survival shooter on a frozen sea”': '「一个在冰封海面上的生存射击」',
-          'Planning the game': '规划游戏',
-          'Writing the code': '写代码',
-          'Drawing the art': '画美术',
-          'Building the levels': '搭关卡',
+          'Analyzing the photo': '解析照片',
+          'Generating the outfit': '生成搭配',
+          'Fitting the clothes': '试穿服装',
+          'Finishing the look': '完成造型',
           'building…': '正在生成…',
           'First version': '第一版',
           'Second version': '第二版',
@@ -167,14 +170,17 @@
           /* Gear Zero build panel */
           'Someone is building one right now': 'いまも誰かが作っています',
           'Live': '進行中',
+          '“AI virtual try-on — full-body demo”': '「AI試着 — 全身コーデのデモ」',
+          '“Casual look”': '「カジュアルコーデ」',
+          '“Jacket look”': '「ジャケットコーデ」',
           '“A first-person shooter in a city buried in ash”': '「灰に埋もれた街を舞台にしたFPS」',
           '“A kart racer through a neon sunset town”': '「ネオンの夕暮れの町を走るカートレース」',
           '“A top-down extraction shooter in a shipping yard”': '「貨物ヤードを舞台にした見下ろし型の脱出シューター」',
           '“A survival shooter on a frozen sea”': '「凍った海でのサバイバルシューター」',
-          'Planning the game': 'ゲームを設計する',
-          'Writing the code': 'コードを書く',
-          'Drawing the art': '絵を描く',
-          'Building the levels': 'ステージを組む',
+          'Analyzing the photo': '写真を解析する',
+          'Generating the outfit': 'コーデを生成する',
+          'Fitting the clothes': '服を試着させる',
+          'Finishing the look': '仕上げる',
           'building…': '作成中…',
           'First version': '最初のバージョン',
           'Second version': '2 番目のバージョン',
@@ -423,24 +429,32 @@
       var room = document.getElementById('gz-room');
       if (!win || !said || !room) return;
 
-      var BASE = '/assets/';
+      var stills = [document.getElementById('gz-still-1'), document.getElementById('gz-still-2')];
       var rooms = [
-        '“A first-person shooter in a city buried in ash”',
-        '“A kart racer through a neon sunset town”',
-        '“A top-down extraction shooter in a shipping yard”',
-        '“A survival shooter on a frozen sea”'
+        '“AI virtual try-on — full-body demo”',
+        '“Casual look”',
+        '“Jacket look”'
       ];
       var at = 0;
       var timer = null;
 
       function show(i) {
-        var n = (i % rooms.length) + 1;
+        var idx = i % rooms.length;
         /* Drop the cached English first, or the translator would put the
            previous brief back from the stale key. */
         delete said.dataset.en;
-        said.textContent = rooms[i % rooms.length];
-        room.poster = BASE + 'room-' + n + '.svg';
-        if (!reduceMotion) room.play().catch(function () {});
+        said.textContent = rooms[idx];
+        /* 0 = try-on video, 1 & 2 = the dress-up stills */
+        var isVideo = idx === 0;
+        room.classList.toggle('is-on', isVideo);
+        stills[0].classList.toggle('is-on', idx === 1);
+        stills[1].classList.toggle('is-on', idx === 2);
+        if (isVideo) {
+          room.currentTime = 0;
+          if (!reduceMotion) room.play().catch(function () {});
+        } else {
+          room.pause();
+        }
         if (window.__applyLang) window.__applyLang();
       }
 

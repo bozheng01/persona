@@ -1586,12 +1586,37 @@
   .btn-ghost:hover { transform: translateY(-3px); background: var(--card-alt); }
   .btn-primary:active, .btn-ghost:active { transform: translateY(0); box-shadow: var(--pop-sm); }
 
-  /* ---- Gear Zero panel -------------------------------------------------- */
-  .gz-window { border: 0; border-radius: 24px; }
+  /* ---- 我的衣柜 demo panel: soft cream / blush "fashion app" skin -------- */
+  .gz-window {
+    background: #fbf6f2;
+    border: 0;
+    border-radius: 28px;
+    box-shadow: 0 26px 60px rgba(90, 58, 56, 0.18);
+  }
   .gz-dot { border: 0; }
-  /* Demo screen: one dark stage; media crossfades between the try-on video and
-     the two dress-up stills. */
-  .gz-screen { background: #111318; }
+  .gz-dot-y { background: #f0d9cf; }
+  .gz-dot-p { background: #db8a7c; }
+  .gz-bar { background: #f4e8e1; border-bottom: 1px solid rgba(90, 58, 56, 0.1); }
+  .gz-bar-title { color: #5a3a38; }
+  .gz-live { background: #db8a7c; border: 0; color: #ffffff; }
+  .gz-live-dot { background: #ffffff; }
+  .gz-build { border-right: 1px solid rgba(90, 58, 56, 0.1); }
+  .gz-said {
+    background: #f2e0da;
+    color: #5a3a38;
+    border-radius: 14px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+  .gz-steps li { color: #5a3a38; }
+  .gz-steps li i { color: #db8a7c; }
+  .gz-track { background: rgba(90, 58, 56, 0.12); }
+  .gz-fill { background: #db8a7c; }
+  /* Demo screen: a light blush stage; portrait (phone-like) on wide screens to
+     suit the try-on stills, squarer on narrow screens so it isn't a wall. */
+  .gz-screen { background: #f3e7e0; aspect-ratio: 1 / 1; }
+  @media (min-width: 1080px) { .gz-screen { aspect-ratio: 4 / 5; } }
   .gz-screen .gz-media {
     position: absolute;
     inset: 0;
@@ -1603,12 +1628,25 @@
   .gz-screen .gz-media.is-on { opacity: 1; }
   .gz-screen video.gz-media { object-fit: cover; }
   .gz-screen img.gz-media { object-fit: contain; }
+  .gz-scrim { background: #f3e7e0; color: rgba(90, 58, 56, 0.5); }
+  .gz-versions { border-top: 1px solid rgba(90, 58, 56, 0.1); }
+  .gz-vline { background: rgba(90, 58, 56, 0.12); }
+  .gz-vdot { background: #db8a7c; border-color: #db8a7c; color: #ffffff; }
+  .gz-v > span:last-child { color: rgba(90, 58, 56, 0.62); }
+  .gz-start { border-top: 1px solid rgba(90, 58, 56, 0.1); color: #5a3a38; }
+  .gz-start:hover { background: rgba(219, 138, 124, 0.1); }
   .gz-logo-name {
     font-family: var(--display);
     font-size: 1.25rem;
     font-weight: 800;
     letter-spacing: 0.01em;
-    color: #ffffff;
+    color: #5a3a38;
+  }
+  .gz-start-cta { background: #db8a7c; color: #ffffff; border: 0; box-shadow: none; outline: 0; }
+  .gz-start:hover .gz-start-cta { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(219, 138, 124, 0.42); }
+  @keyframes gz-stop {
+    0%, 50% { border-color: rgba(90, 58, 56, 0.3); background: transparent; color: #5a3a38; }
+    56%, 100% { border-color: #db8a7c; background: #db8a7c; color: #ffffff; }
   }
 
   /* ---- Cards / bento ---------------------------------------------------- */

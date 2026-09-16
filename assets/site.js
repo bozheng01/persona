@@ -268,9 +268,9 @@
       /* Strings that carry inline markup, so they're swapped as HTML */
       var RICH = {
         '.hero h1': {
-          en: 'Human <span class="accent">&#215;</span> AI = Individuality;<br>Human <span class="accent">&#215;</span> AI = Robot Education',
-          zh: '人类 <span class="accent">&#215;</span> AI ＝ 个性；<br>人类 <span class="accent">&#215;</span> AI ＝ 机器人教育',
-          ja: '人間 <span class="accent">&#215;</span> AI ＝ 個性；<br>人間 <span class="accent">&#215;</span> AI ＝ ロボット教育'
+          en: 'Persona.AI<br>I get what makes you.',
+          zh: 'Persona.AI我懂你的与众不同',
+          ja: 'Persona.AI<br>あなたらしさを、わかってる。'
         },
         '.contact h2': {
           en: 'Build the future<br>with AI.',

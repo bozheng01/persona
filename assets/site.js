@@ -269,7 +269,7 @@
       var RICH = {
         '.hero h1': {
           en: 'Persona.AI<br>I get what makes you.',
-          zh: 'Persona.AI我懂你的与众不同',
+          zh: 'Persona.AI<br>我懂你的与众不同',
           ja: 'Persona.AI<br>あなたらしさを、わかってる。'
         },
         '.contact h2': {

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="wbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdf6ec"/>
+      <stop offset="1" stop-color="#f7e6d2"/>
+    </linearGradient>
+    <linearGradient id="wcloth" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f58220"/>
+      <stop offset="1" stop-color="#c1272d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#wbg)"/>
+  <circle cx="240" cy="180" r="220" fill="#f58220" opacity="0.12"/>
+  <circle cx="1400" cy="760" r="260" fill="#c1272d" opacity="0.10"/>
+
+  <rect x="60" y="60" width="1480" height="780" rx="40" fill="none" stroke="#241e1a" stroke-opacity="0.18" stroke-width="4" stroke-dasharray="18 20"/>
+
+  <!-- figure -->
+  <g transform="translate(560 470)">
+    <circle cx="0" cy="-210" r="78" fill="#f6d9b8" stroke="#241e1a" stroke-width="6"/>
+    <path d="M-78 -150 Q0 -192 78 -150 L108 90 Q0 146 -108 90 Z" fill="url(#wcloth)" stroke="#241e1a" stroke-width="6"/>
+    <path d="M-48 -116 Q0 -142 48 -116 L64 -6 Q0 28 -64 -6 Z" fill="#ffffff" opacity="0.85"/>
+    <rect x="-108" y="90" width="216" height="66" rx="18" fill="#241e1a" opacity="0.85"/>
+  </g>
+
+  <!-- outfit panel -->
+  <g transform="translate(960 250)">
+    <rect x="0" y="0" width="460" height="400" rx="28" fill="#ffffff" stroke="#241e1a" stroke-width="5"/>
+    <rect x="30" y="30" width="180" height="180" rx="18" fill="#f58220"/>
+    <rect x="240" y="30" width="180" height="180" rx="18" fill="#c1272d"/>
+    <rect x="30" y="230" width="180" height="140" rx="18" fill="#f6d9b8"/>
+    <rect x="240" y="230" width="180" height="140" rx="18" fill="#241e1a" opacity="0.85"/>
+  </g>
+
+  <!-- play badge -->
+  <g transform="translate(560 470)">
+    <circle cx="0" cy="0" r="88" fill="#c1272d" stroke="#ffffff" stroke-width="8"/>
+    <path d="M-26 -40 L48 0 L-26 40 Z" fill="#ffffff"/>
+  </g>
+
+  <text x="800" y="840" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-size="32" font-weight="700" letter-spacing="6" fill="#241e1a" fill-opacity="0.45">DEMO</text>
+</svg>

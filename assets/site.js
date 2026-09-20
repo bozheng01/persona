@@ -454,16 +454,20 @@
            previous brief back from the stale key. */
         delete said.dataset.en;
         said.textContent = rooms[idx];
-        /* 0 = try-on video, 1 & 2 = the dress-up stills */
-        var isVideo = idx === 0;
-        room.classList.toggle('is-on', isVideo);
+        /* 0 = try-on media, 1 & 2 = the dress-up stills. #gz-room is a still
+           placeholder while the demo video is remade; the VIDEO guard keeps the
+           play/pause logic working if a real video is swapped back in. */
+        var isPrimary = idx === 0;
+        room.classList.toggle('is-on', isPrimary);
         stills[0].classList.toggle('is-on', idx === 1);
         stills[1].classList.toggle('is-on', idx === 2);
-        if (isVideo) {
-          room.currentTime = 0;
-          if (!reduceMotion) room.play().catch(function () {});
-        } else {
-          room.pause();
+        if (room.tagName === 'VIDEO') {
+          if (isPrimary) {
+            room.currentTime = 0;
+            if (!reduceMotion) room.play().catch(function () {});
+          } else {
+            room.pause();
+          }
         }
         if (window.__applyLang) window.__applyLang();
       }
@@ -482,7 +486,7 @@
       if (reduceMotion) { show(0); return; }
 
       function start() { if (!timer) { pass(); timer = setInterval(pass, 7000); } }
-      function stop() { if (timer) { clearInterval(timer); timer = null; } room.pause(); }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } if (room.tagName === 'VIDEO') room.pause(); }
 
       /* Start straight away rather than waiting to be observed: the panel sits in
          the hero, and an observer that never delivers a first entry would leave it

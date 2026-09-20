@@ -1268,6 +1268,7 @@
     box-shadow: var(--pop);
   }
   .svc-feature-media video { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .svc-feature-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
   @media (max-width: 899px) {
     .svc-feature-layout { grid-template-columns: 1fr; gap: 26px; }
     .svc-feature-copy { max-width: none; }

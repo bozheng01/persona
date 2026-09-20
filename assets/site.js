@@ -552,13 +552,14 @@
     /* ---------- Project name ticker ---------- */
     (function () {
       var names = [
-        'Persona-Evoke', 'Marionette', 'Persona World', 'Sekai2', 'WorldRover', 'ShadowDancer', 'MASS', 'Wild World', 'PackForcing', 'World Mark', 'Surprise Forcing', 'Interactive Game World',
-        '我的衣柜', 'Auto BG', 'JAMER', 'PersonaRenderer-Flash', 'Persona Render', 'AgenticSTS', 'MeepleLM',
-        'MIO', 'FloodDiffusion', 'UniLS', 'Living the Novel',
-        'YUME & YUME 1.5', 'Sekai'
+        'My Closet', 'Interactive Intelligence', 'Robot Motions', 'Persona World', 'Persona Agent'
       ];
       var track = document.getElementById('marquee-track');
-      names.concat(names).forEach(function (name) {
+      /* Repeat the list so one half is wider than any viewport; the track holds
+         two identical halves and the CSS animation translates -50%, so the loop
+         stays seamless without gaps on wide screens. */
+      var half = names.concat(names, names);
+      half.concat(half).forEach(function (name) {
         var s = document.createElement('span');
         s.textContent = name;
         track.appendChild(s);

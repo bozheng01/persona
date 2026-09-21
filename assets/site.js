@@ -565,6 +565,43 @@
       handle.addEventListener('pointercancel', up);
     })();
 
+    /* ---------- Product demo: click the video to enlarge, click to restore ----------
+       The video is moved to <body> while zoomed so no transformed ancestor can
+       trap the fixed overlay; it is put back into its media slot on close. */
+    (function () {
+      var video = document.querySelector('.svc-feature-media video');
+      if (!video) return;
+      var home = video.parentNode;
+      var next = video.nextSibling;
+
+      function isZoomed() { return video.classList.contains('is-zoomed'); }
+      function zoom() {
+        document.body.appendChild(video);
+        video.classList.add('is-zoomed');
+        document.body.classList.add('is-zooming');
+        video.setAttribute('aria-expanded', 'true');
+      }
+      function unzoom() {
+        if (next && next.parentNode === home) home.insertBefore(video, next);
+        else home.appendChild(video);
+        video.classList.remove('is-zoomed');
+        document.body.classList.remove('is-zooming');
+        video.setAttribute('aria-expanded', 'false');
+      }
+      function toggle() { if (isZoomed()) unzoom(); else zoom(); }
+
+      video.setAttribute('role', 'button');
+      video.setAttribute('tabindex', '0');
+      video.setAttribute('aria-expanded', 'false');
+      video.addEventListener('click', toggle);
+      video.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && isZoomed()) unzoom();
+      });
+    })();
+
     /* ---------- Project name ticker ---------- */
     (function () {
       var names = [

@@ -1761,6 +1761,8 @@
     .about .profile-grid { grid-template-columns: 1fr 1fr; }
   }
   .about .profile-col { display: flex; flex-direction: column; gap: 24px; }
+  /* Full-width row (Business Activities): starts at the left column and spans both */
+  .about .profile-grid > .profile-row { grid-column: 1 / -1; }
   .about .profile-row {
     display: grid;
     grid-template-columns: 124px 1fr;

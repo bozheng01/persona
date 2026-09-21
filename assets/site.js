@@ -39,9 +39,11 @@
           /* Gear Zero build panel */
           'Someone is building one right now': '现在就有人在做一个',
           'Live': '进行中',
-          '“AI virtual try-on — full-body demo”': '「AI试衣 — 全身搭配演示」',
-          '“Casual look”': '「休闲搭配」',
-          '“Jacket look”': '「外套搭配」',
+          '“Original photo”': '「原图」',
+          '“Jacket look”': '「夹克搭配」',
+          '“Jeans look”': '「牛仔裤搭配」',
+          '“Shoes look”': '「鞋子搭配」',
+          '“Bag look”': '「包包搭配」',
           '“A first-person shooter in a city buried in ash”': '「一个发生在被灰烬埋掉的城市里的第一人称射击」',
           '“A kart racer through a neon sunset town”': '「一个穿过霓虹黄昏小镇的卡丁车竞速」',
           '“A top-down extraction shooter in a shipping yard”': '「一个发生在货运场的俯视角撤离射击」',
@@ -51,10 +53,11 @@
           'Fitting the clothes': '试穿服装',
           'Finishing the look': '完成造型',
           'building…': '正在生成…',
-          'First version': '第一版',
-          'Second version': '第二版',
-          'Third version': '第三版',
-          'Fourth version': '第四版',
+          'Original photo': '原图',
+          'Jacket': '夹克',
+          'Jeans': '牛仔裤',
+          'Shoes': '鞋子',
+          'Bag': '包包',
           /* nav */
           'Directions': '方向', 'Product': '产品', 'Blog': '博客', 'About': '关于我们',
           'Research': '研究', 'Products': '产品', 'Solutions': '解决方案', 'About Us': '关于我们',
@@ -182,9 +185,11 @@
           /* Gear Zero build panel */
           'Someone is building one right now': 'いまも誰かが作っています',
           'Live': '進行中',
-          '“AI virtual try-on — full-body demo”': '「AI試着 — 全身コーデのデモ」',
-          '“Casual look”': '「カジュアルコーデ」',
+          '“Original photo”': '「元の写真」',
           '“Jacket look”': '「ジャケットコーデ」',
+          '“Jeans look”': '「ジーンズコーデ」',
+          '“Shoes look”': '「靴コーデ」',
+          '“Bag look”': '「カバンコーデ」',
           '“A first-person shooter in a city buried in ash”': '「灰に埋もれた街を舞台にしたFPS」',
           '“A kart racer through a neon sunset town”': '「ネオンの夕暮れの町を走るカートレース」',
           '“A top-down extraction shooter in a shipping yard”': '「貨物ヤードを舞台にした見下ろし型の脱出シューター」',
@@ -194,10 +199,11 @@
           'Fitting the clothes': '服を試着させる',
           'Finishing the look': '仕上げる',
           'building…': '作成中…',
-          'First version': '最初のバージョン',
-          'Second version': '2 番目のバージョン',
-          'Third version': '3 番目のバージョン',
-          'Fourth version': '4 番目のバージョン',
+          'Original photo': '元の写真',
+          'Jacket': 'ジャケット',
+          'Jeans': 'ジーンズ',
+          'Shoes': '靴',
+          'Bag': 'カバン',
           'Directions': '方向', 'Product': 'プロダクト', 'Blog': 'ブログ', 'About': '私たちについて',
           'Research': 'リサーチ', 'Products': 'プロダクト', 'Solutions': 'ソリューション', 'About Us': '私たちについて',
           'Get in touch': 'お問い合わせ', 'Explore directions': '方向を見る',
@@ -441,25 +447,33 @@
 
     })();
 
-    /* ---------- Gear Zero build panel: cycle the rooms ----------
-       Four briefs, four rooms, mirroring zero.personalab.ai. Each pass is 7s: the
-       CSS below drives the checklist, bar, scrim and version stops, and this
-       restarts all of them together by re-applying .is-building, so the copy and
-       the footage never drift out of step with the animation. */
+    /* ---------- 我的衣柜 build panel: cycle the try-on samples ----------
+       Five samples (original / jacket / jeans / shoes / bag), one per pass. Each
+       pass is 7s: the CSS below drives the checklist, bar, scrim and version
+       stops, and this restarts all of them together by re-applying .is-building,
+       so the copy and the sample never drift out of step with the animation. */
     (function () {
       var win = document.getElementById('gz-window');
       var said = document.getElementById('gz-said');
-      var room = document.getElementById('gz-room');
-      if (!win || !said || !room) return;
+      var samples = [].slice.call(document.querySelectorAll('.gz-sample'));
+      var vs = [].slice.call(document.querySelectorAll('.gz-v'));
+      if (!win || !said || !samples.length) return;
 
-      var stills = [document.getElementById('gz-still-1'), document.getElementById('gz-still-2')];
       var rooms = [
-        '“AI virtual try-on — full-body demo”',
-        '“Casual look”',
-        '“Jacket look”'
+        '“Original photo”',
+        '“Jacket look”',
+        '“Jeans look”',
+        '“Shoes look”',
+        '“Bag look”'
       ];
       var at = 0;
       var timer = null;
+
+      /* Load a sample the first time it is needed (data-src), so the hero does
+         not pull all five ~2MB PNGs up front. */
+      function ensure(img) {
+        if (img && !img.getAttribute('src') && img.dataset.src) img.src = img.dataset.src;
+      }
 
       function show(i) {
         var idx = i % rooms.length;
@@ -467,21 +481,10 @@
            previous brief back from the stale key. */
         delete said.dataset.en;
         said.textContent = rooms[idx];
-        /* 0 = try-on media, 1 & 2 = the dress-up stills. #gz-room is a still
-           placeholder while the demo video is remade; the VIDEO guard keeps the
-           play/pause logic working if a real video is swapped back in. */
-        var isPrimary = idx === 0;
-        room.classList.toggle('is-on', isPrimary);
-        stills[0].classList.toggle('is-on', idx === 1);
-        stills[1].classList.toggle('is-on', idx === 2);
-        if (room.tagName === 'VIDEO') {
-          if (isPrimary) {
-            room.currentTime = 0;
-            if (!reduceMotion) room.play().catch(function () {});
-          } else {
-            room.pause();
-          }
-        }
+        samples.forEach(function (img, n) { img.classList.toggle('is-on', n === idx); });
+        vs.forEach(function (v, n) { v.classList.toggle('is-active', n === idx); });
+        ensure(samples[idx]);
+        ensure(samples[(idx + 1) % samples.length]);
         if (window.__applyLang) window.__applyLang();
       }
 
@@ -499,7 +502,7 @@
       if (reduceMotion) { show(0); return; }
 
       function start() { if (!timer) { pass(); timer = setInterval(pass, 7000); } }
-      function stop() { if (timer) { clearInterval(timer); timer = null; } if (room.tagName === 'VIDEO') room.pause(); }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
       /* Start straight away rather than waiting to be observed: the panel sits in
          the hero, and an observer that never delivers a first entry would leave it

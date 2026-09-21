@@ -700,8 +700,8 @@
   }
 
   /* Version stops */
-  .gz-versions { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 16px 14px; border-top: 2px solid rgba(255, 255, 255, 0.15); }
-  .gz-vline { position: absolute; left: 12.5%; right: 12.5%; top: 26px; height: 2px; background: rgba(255, 255, 255, 0.15); }
+  .gz-versions { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 16px 14px; border-top: 2px solid rgba(255, 255, 255, 0.15); }
+  .gz-vline { position: absolute; left: 10%; right: 10%; top: 26px; height: 2px; background: rgba(255, 255, 255, 0.15); }
   .gz-v { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
   .gz-vdot {
     display: grid;
@@ -796,7 +796,6 @@
     .gz-window.is-building .gz-steps li { animation: gz-step 7s linear both; animation-delay: calc((var(--i) - 1) * 0.7s); }
     .gz-window.is-building .gz-fill { animation: gz-fill 7s ease-out both; }
     .gz-window.is-building .gz-scrim { animation: gz-scrim 7s ease both; }
-    .gz-window.is-building .gz-vdot { animation: gz-stop 7s linear both; animation-delay: calc((var(--i) - 1) * 0.84s); }
   }
   @keyframes gz-said {
     0% { opacity: 0; transform: translateY(4px); }
@@ -1680,11 +1679,13 @@
   .gz-steps li i { color: #db8a7c; }
   .gz-track { background: rgba(90, 58, 56, 0.12); }
   .gz-fill { background: #db8a7c; }
-  .gz-versions { flex: none; border-top: 1px solid rgba(90, 58, 56, 0.1); grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .gz-versions { flex: none; border-top: 1px solid rgba(90, 58, 56, 0.1); grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .gz-vline { background: rgba(90, 58, 56, 0.12); }
   .gz-v { min-width: 0; }
-  .gz-vdot { background: #db8a7c; border-color: #db8a7c; color: #ffffff; }
+  .gz-vdot { background: transparent; border-color: rgba(90, 58, 56, 0.3); color: #5a3a38; }
+  .gz-v.is-active .gz-vdot { background: #db8a7c; border-color: #db8a7c; color: #ffffff; }
   .gz-v > span:last-child { color: rgba(90, 58, 56, 0.62); overflow-wrap: anywhere; }
+  .gz-v.is-active > span:last-child { color: #5a3a38; font-weight: 700; }
   .gz-start { flex: none; border-top: 1px solid rgba(90, 58, 56, 0.1); color: #5a3a38; padding: 12px 14px; gap: 10px; }
   .gz-start:hover { background: rgba(219, 138, 124, 0.1); }
   .gz-logo-name {

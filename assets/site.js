@@ -565,26 +565,43 @@
       handle.addEventListener('pointercancel', up);
     })();
 
-    /* ---------- Product demo: click the video to enlarge, click to restore ----------
-       The video is moved to <body> while zoomed so no transformed ancestor can
-       trap the fixed overlay; it is put back into its media slot on close. */
+    /* ---------- Product demo: click the video to enlarge (2x), click to restore ----------
+       Grows to twice its media slot, capped to the viewport. The video is moved to
+       <body> while open so no transformed ancestor can trap the fixed overlay, and
+       put back into its slot on close. */
     (function () {
       var video = document.querySelector('.svc-feature-media video');
       if (!video) return;
       var home = video.parentNode;
       var next = video.nextSibling;
+      var backdrop = document.createElement('div');
+      backdrop.className = 'demo-backdrop';
+      backdrop.setAttribute('aria-hidden', 'true');
 
       function isZoomed() { return video.classList.contains('is-zoomed'); }
       function zoom() {
+        var rect = home.getBoundingClientRect();
+        var ratio = rect.height / rect.width;
+        var w = Math.min(rect.width * 2, window.innerWidth * 0.92);
+        var h = w * ratio;
+        if (h > window.innerHeight * 0.88) { h = window.innerHeight * 0.88; w = h / ratio; }
+        video.style.width = Math.round(w) + 'px';
+        video.style.height = Math.round(h) + 'px';
+        document.body.appendChild(backdrop);
         document.body.appendChild(video);
+        backdrop.classList.add('is-on');
         video.classList.add('is-zoomed');
         document.body.classList.add('is-zooming');
         video.setAttribute('aria-expanded', 'true');
       }
       function unzoom() {
+        video.style.width = '';
+        video.style.height = '';
         if (next && next.parentNode === home) home.insertBefore(video, next);
         else home.appendChild(video);
         video.classList.remove('is-zoomed');
+        backdrop.classList.remove('is-on');
+        if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
         document.body.classList.remove('is-zooming');
         video.setAttribute('aria-expanded', 'false');
       }
@@ -593,10 +610,11 @@
       video.setAttribute('role', 'button');
       video.setAttribute('tabindex', '0');
       video.setAttribute('aria-expanded', 'false');
-      video.addEventListener('click', toggle);
+      video.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
       video.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
       });
+      backdrop.addEventListener('click', unzoom);
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && isZoomed()) unzoom();
       });

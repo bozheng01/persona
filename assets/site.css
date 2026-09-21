@@ -1712,22 +1712,30 @@
   .cell h3 { text-transform: uppercase; font-weight: 800; letter-spacing: -0.01em; }
   .cell-video-wall video, .cell-video-grid video { border: 0; border-radius: 16px; }
   .svc-feature-media, .svc-synthetic-media { border: 0; border-radius: 20px; }
-  /* Product demo: click the video to blow it up into a full-screen lightbox */
+  /* Product demo: click the video to enlarge to 2x (capped), click to restore */
   .svc-feature-media video { cursor: zoom-in; }
   video.is-zoomed {
     position: fixed;
     inset: 0;
+    margin: auto;
     z-index: 9999;
-    width: 100vw;
-    height: 100vh;
-    max-width: none;
     object-fit: contain;
-    background: rgba(20, 10, 10, 0.92);
+    background: #14100f;
     border: 0;
-    border-radius: 0;
-    box-shadow: none;
+    border-radius: 16px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
     cursor: zoom-out;
   }
+  .demo-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(20, 10, 10, 0.62);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .demo-backdrop.is-on { opacity: 1; pointer-events: auto; }
   body.is-zooming { overflow: hidden; }
 
   /* ---- Chips ------------------------------------------------------------ */
